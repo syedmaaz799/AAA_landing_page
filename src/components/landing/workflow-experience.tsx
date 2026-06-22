@@ -497,6 +497,7 @@ export function WorkflowExperience() {
       id="workflow"
       ref={rootRef}
       className="workflow-section relative scroll-mt-28"
+      data-lenis-prevent-touch
     >
       <div
         ref={stageRef}
@@ -510,7 +511,7 @@ export function WorkflowExperience() {
         >
           <div className="flex flex-col items-center gap-4 px-6 text-center">
             <p className="text-sm font-medium text-zinc-400">
-              Preparing workflow preview…
+              Loading workflow frames…
             </p>
             <div className="h-1 w-48 overflow-hidden rounded-full bg-white/10">
               <div

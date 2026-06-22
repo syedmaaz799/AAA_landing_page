@@ -42,9 +42,6 @@ export function HeroParticles() {
           }}
         />
       ))}
-
-      <div className="hero-light-streak absolute top-1/4 left-1/4 h-px w-1/3 rotate-12 bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" />
-      <div className="hero-light-streak absolute top-1/2 right-1/4 h-px w-1/4 -rotate-6 bg-gradient-to-r from-transparent via-cyan-400/15 to-transparent" />
     </div>
   )
 }

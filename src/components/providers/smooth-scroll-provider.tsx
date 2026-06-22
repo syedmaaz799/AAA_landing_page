@@ -42,6 +42,7 @@ function LenisScrollTriggerBridge() {
     if (!lenis) return
 
     ScrollTrigger.clearScrollMemory()
+    gsap.ticker.lagSmoothing(0)
 
     lenis.on("scroll", ScrollTrigger.update)
 
@@ -148,6 +149,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
         smoothWheel: true,
         wheelMultiplier: 0.9,
         touchMultiplier: 1.2,
+        syncTouchLerp: 0.05,
         infinite: false,
         autoResize: true,
         syncTouch: true,

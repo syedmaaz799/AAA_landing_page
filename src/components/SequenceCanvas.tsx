@@ -10,13 +10,13 @@ import {
 } from "react"
 
 const BLOCKING_FRAME_COUNT = 16
-const BLOCKING_FRAME_COUNT_MOBILE = 40
 const BLOCKING_CONCURRENCY = 12
-const BLOCKING_CONCURRENCY_MOBILE = 6
 const BACKGROUND_CONCURRENCY = 8
-const BACKGROUND_CONCURRENCY_MOBILE = 4
+const MOBILE_PRELOAD_CONCURRENCY = 6
 const MAX_DPR = 2
 const MAX_DPR_MOBILE = 1.5
+
+type FrameSource = HTMLImageElement | ImageBitmap
 
 function isMobileCanvas(): boolean {
   if (typeof window === "undefined") return false
@@ -41,10 +41,55 @@ function defaultFramePath(frame: number): string {
   return `/frames/frame-${String(frame).padStart(3, "0")}.jpg`
 }
 
+function disposeFrameSource(source: FrameSource) {
+  if (typeof ImageBitmap !== "undefined" && source instanceof ImageBitmap) {
+    source.close()
+  }
+}
+
+async function decodeImage(img: HTMLImageElement): Promise<void> {
+  if (!img.complete || !img.naturalWidth) return
+  if (typeof img.decode === "function") {
+    try {
+      await img.decode()
+    } catch {
+      // decode() can reject for broken images; draw path handles misses
+    }
+  }
+}
+
+async function loadAndDecodeFrame(
+  frame: number,
+  framePath: (frame: number) => string,
+): Promise<FrameSource | null> {
+  const img = new Image()
+  img.decoding = "async"
+
+  const loaded = await new Promise<boolean>((resolve) => {
+    img.onload = () => resolve(true)
+    img.onerror = () => resolve(false)
+    img.src = framePath(frame)
+  })
+
+  if (!loaded || !img.complete || !img.naturalWidth) return null
+
+  await decodeImage(img)
+
+  if (typeof createImageBitmap === "function") {
+    try {
+      return await createImageBitmap(img)
+    } catch {
+      return img
+    }
+  }
+
+  return img
+}
+
 async function loadFramesInBatches(
   frames: number[],
   concurrency: number,
-  images: Map<number, HTMLImageElement>,
+  store: Map<number, FrameSource>,
   onFrameLoaded: () => void,
   framePath: (frame: number) => string,
 ): Promise<void> {
@@ -53,22 +98,11 @@ async function loadFramesInBatches(
   async function worker() {
     while (index < frames.length) {
       const current = frames[index++]
-      if (images.has(current)) continue
+      if (store.has(current)) continue
 
-      await new Promise<void>((resolve) => {
-        const img = new Image()
-        img.decoding = "async"
-        img.onload = () => {
-          images.set(current, img)
-          onFrameLoaded()
-          resolve()
-        }
-        img.onerror = () => {
-          onFrameLoaded()
-          resolve()
-        }
-        img.src = framePath(current)
-      })
+      const source = await loadAndDecodeFrame(current, framePath)
+      if (source) store.set(current, source)
+      onFrameLoaded()
     }
   }
 
@@ -92,8 +126,9 @@ export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasPro
     ref,
   ) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
-    const imagesRef = useRef<Map<number, HTMLImageElement>>(new Map())
+    const framesRef = useRef<Map<number, FrameSource>>(new Map())
     const frameRef = useRef(1)
+    const drawnFrameRef = useRef<number | null>(null)
     const rafRef = useRef<number | null>(null)
     const sizeRef = useRef({ width: 0, height: 0, dpr: 1 })
     const onPreloadProgressRef = useRef(onPreloadProgress)
@@ -105,59 +140,73 @@ export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasPro
     framePathRef.current = framePath
 
     const findNearestLoadedFrame = useCallback((target: number): number | null => {
-      const images = imagesRef.current
-      if (images.has(target)) return target
+      const frames = framesRef.current
+      if (frames.has(target)) return target
 
       for (let offset = 1; offset < totalFrames; offset++) {
         const before = target - offset
         const after = target + offset
-        if (before >= 1 && images.has(before)) return before
-        if (after <= totalFrames && images.has(after)) return after
+        if (before >= 1 && frames.has(before)) return before
+        if (after <= totalFrames && frames.has(after)) return after
       }
       return null
     }, [totalFrames])
 
-    const drawFrame = useCallback(() => {
-      const canvas = canvasRef.current
-      if (!canvas) return
+    const drawFrame = useCallback(
+      (force = false) => {
+        const canvas = canvasRef.current
+        if (!canvas) return
 
-      const ctx = canvas.getContext("2d")
-      if (!ctx) return
+        const ctx = canvas.getContext("2d")
+        if (!ctx) return
 
-      const { width, height, dpr } = sizeRef.current
-      if (!width || !height) return
+        const { width, height, dpr } = sizeRef.current
+        if (!width || !height) return
 
-      const target = Math.round(
-        Math.min(totalFrames, Math.max(1, frameRef.current)),
-      )
-      const nearest = findNearestLoadedFrame(target)
-      if (!nearest) return
+        const target = Math.round(
+          Math.min(totalFrames, Math.max(1, frameRef.current)),
+        )
 
-      const img = imagesRef.current.get(nearest)
-      if (!img?.complete || !img.naturalWidth) return
+        if (!force && drawnFrameRef.current === target) return
 
-      const cw = width * dpr
-      const ch = height * dpr
-      const iw = img.naturalWidth
-      const ih = img.naturalHeight
-      const scale = Math.max(cw / iw, ch / ih)
-      const dw = iw * scale
-      const dh = ih * scale
-      const dx = (cw - dw) / 2
-      const dy = (ch - dh) / 2
+        const nearest = findNearestLoadedFrame(target)
+        if (!nearest) return
 
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
-      ctx.clearRect(0, 0, cw, ch)
-      ctx.drawImage(img, dx, dy, dw, dh)
-    }, [findNearestLoadedFrame, totalFrames])
+        const source = framesRef.current.get(nearest)
+        if (!source) return
 
-    const scheduleDraw = useCallback(() => {
-      if (rafRef.current !== null) return
-      rafRef.current = requestAnimationFrame(() => {
-        rafRef.current = null
-        drawFrame()
-      })
-    }, [drawFrame])
+        const cw = width * dpr
+        const ch = height * dpr
+        const iw =
+          source instanceof ImageBitmap ? source.width : source.naturalWidth
+        const ih =
+          source instanceof ImageBitmap ? source.height : source.naturalHeight
+        if (!iw || !ih) return
+
+        const scale = Math.max(cw / iw, ch / ih)
+        const dw = iw * scale
+        const dh = ih * scale
+        const dx = (cw - dw) / 2
+        const dy = (ch - dh) / 2
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
+        ctx.clearRect(0, 0, cw, ch)
+        ctx.drawImage(source, dx, dy, dw, dh)
+        drawnFrameRef.current = target
+      },
+      [findNearestLoadedFrame, totalFrames],
+    )
+
+    const scheduleDraw = useCallback(
+      (force = false) => {
+        if (rafRef.current !== null) return
+        rafRef.current = requestAnimationFrame(() => {
+          rafRef.current = null
+          drawFrame(force)
+        })
+      },
+      [drawFrame],
+    )
 
     const resizeCanvas = useCallback(() => {
       const canvas = canvasRef.current
@@ -184,21 +233,27 @@ export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasPro
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
 
-      scheduleDraw()
+      drawnFrameRef.current = null
+      scheduleDraw(true)
     }, [scheduleDraw])
 
     useImperativeHandle(
       ref,
       () => ({
         setFrame(frame: number) {
-          frameRef.current = frame
+          const next = Math.round(
+            Math.min(totalFrames, Math.max(1, frame)),
+          )
+          if (frameRef.current === next) return
+          frameRef.current = next
           scheduleDraw()
         },
         redraw() {
-          scheduleDraw()
+          drawnFrameRef.current = null
+          scheduleDraw(true)
         },
       }),
-      [scheduleDraw],
+      [scheduleDraw, totalFrames],
     )
 
     useEffect(() => {
@@ -225,62 +280,66 @@ export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasPro
     }, [resizeCanvas])
 
     useEffect(() => {
-      const images = imagesRef.current
-      images.clear()
+      const store = framesRef.current
+      for (const source of store.values()) {
+        disposeFrameSource(source)
+      }
+      store.clear()
+      drawnFrameRef.current = null
 
       const mobile = isMobileCanvas()
-      const blockingCount = mobile
-        ? BLOCKING_FRAME_COUNT_MOBILE
-        : BLOCKING_FRAME_COUNT
-      const blockingConcurrency = mobile
-        ? BLOCKING_CONCURRENCY_MOBILE
-        : BLOCKING_CONCURRENCY
-      const backgroundConcurrency = mobile
-        ? BACKGROUND_CONCURRENCY_MOBILE
-        : BACKGROUND_CONCURRENCY
-
       const allFrames = Array.from({ length: totalFrames }, (_, i) => i + 1)
-      const blockingFrames = allFrames.slice(0, blockingCount)
-      const backgroundFrames = allFrames.slice(blockingCount)
 
       let loaded = 0
-      let firstFrameReported = false
+      let unlockReported = false
 
       const reportProgress = () => {
         loaded++
-        const progress = loaded / totalFrames
-        onPreloadProgressRef.current?.(progress)
+        onPreloadProgressRef.current?.(loaded / totalFrames)
+      }
 
-        if (!firstFrameReported && images.size >= 1) {
-          firstFrameReported = true
-          onPreloadCompleteRef.current?.()
-          scheduleDraw()
-        }
+      const reportUnlock = () => {
+        if (unlockReported) return
+        unlockReported = true
+        onPreloadCompleteRef.current?.()
+        scheduleDraw(true)
       }
 
       let cancelled = false
 
       ;(async () => {
+        if (mobile) {
+          await loadFramesInBatches(
+            allFrames,
+            MOBILE_PRELOAD_CONCURRENCY,
+            store,
+            reportProgress,
+            framePathRef.current,
+          )
+
+          if (cancelled) return
+          reportUnlock()
+          return
+        }
+
+        const blockingFrames = allFrames.slice(0, BLOCKING_FRAME_COUNT)
+        const backgroundFrames = allFrames.slice(BLOCKING_FRAME_COUNT)
+
         await loadFramesInBatches(
           blockingFrames,
-          blockingConcurrency,
-          images,
+          BLOCKING_CONCURRENCY,
+          store,
           reportProgress,
           framePathRef.current,
         )
 
         if (cancelled) return
-
-        if (!firstFrameReported) {
-          firstFrameReported = true
-          onPreloadCompleteRef.current?.()
-          scheduleDraw()
-        }
+        reportUnlock()
 
         void loadFramesInBatches(
           backgroundFrames,
-          backgroundConcurrency,
-          images,
+          BACKGROUND_CONCURRENCY,
+          store,
           reportProgress,
           framePathRef.current,
         )
@@ -288,7 +347,10 @@ export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasPro
 
       return () => {
         cancelled = true
-        images.clear()
+        for (const source of store.values()) {
+          disposeFrameSource(source)
+        }
+        store.clear()
       }
     }, [totalFrames, scheduleDraw])
 
