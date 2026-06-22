@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useLenis } from "lenis/react"
 import { Menu, X } from "lucide-react"
 import { NAV_LINKS } from "@/lib/landing-data"
+import { WHATSAPP_BOOKING_URL } from "@/lib/whatsapp"
 import { GlowButton } from "@/components/landing/motion"
 import { cn } from "@/lib/utils"
 
@@ -43,13 +44,23 @@ export function Navbar() {
         )}
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:h-20 md:px-8">
-          <a href="#home" className="group flex flex-col">
-            <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-sky-400 bg-clip-text text-lg font-bold tracking-tight text-transparent md:text-xl">
-              NeuralVarsity
-            </span>
-            <span className="text-[10px] tracking-widest text-zinc-500 uppercase md:text-xs">
-              AI Agents & Automation
-            </span>
+          <a href="#home" className="group flex items-center gap-2.5 md:gap-3">
+            <img
+              src="/brand/nv-logo-updated.png"
+              alt=""
+              aria-hidden="true"
+              width={40}
+              height={40}
+              className="size-9 shrink-0 object-contain md:size-10"
+            />
+            <div className="flex flex-col">
+              <span className="font-brand text-lg font-bold tracking-tight text-white md:text-xl">
+                NeuralVarsity
+              </span>
+              <span className="text-[10px] tracking-widest text-zinc-500 uppercase md:text-xs">
+                AI Agents & Automation
+              </span>
+            </div>
           </a>
 
           <div className="hidden items-center gap-8 lg:flex">
@@ -65,7 +76,7 @@ export function Navbar() {
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
-            <GlowButton variant="ghost" href="#consultation" className="!px-5 !py-2.5 !text-sm">
+            <GlowButton variant="ghost" href={WHATSAPP_BOOKING_URL} className="!px-5 !py-2.5 !text-sm">
               Book Consultation
             </GlowButton>
             <GlowButton variant="primary" modalAction="enroll" className="!px-5 !py-2.5 !text-sm">
@@ -113,7 +124,7 @@ export function Navbar() {
                 ))}
               </div>
               <div className="mt-auto flex flex-col gap-3">
-                <GlowButton variant="ghost" href="#consultation" onClick={() => setMobileOpen(false)}>
+                <GlowButton variant="ghost" href={WHATSAPP_BOOKING_URL} onClick={() => setMobileOpen(false)}>
                   Book Consultation
                 </GlowButton>
                 <GlowButton

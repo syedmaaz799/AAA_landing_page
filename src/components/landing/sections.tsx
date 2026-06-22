@@ -9,7 +9,6 @@ import {
   ChevronDown,
   Code2,
   Layers,
-  MessageCircle,
   Rocket,
   Sparkles,
   TrendingUp,
@@ -25,7 +24,9 @@ import {
   PROGRAM_DIFFERENTIATORS,
   TOOL_BADGES,
 } from "@/lib/landing-data"
+import { WHATSAPP_BOOKING_URL } from "@/lib/whatsapp"
 import { CountUp } from "@/components/landing/count-up"
+import { WhatsAppIcon } from "@/components/icons/whatsapp-icon"
 import { Marquee } from "@/components/landing/marquee"
 import {
   FadeUp,
@@ -160,15 +161,17 @@ export { WhoShouldJoinSection } from "@/components/landing/who-should-join-secti
 
 export function ToolsSection() {
   return (
-    <Section id="tools" className="overflow-hidden border-y border-white/5 bg-white/[0.02]">
+    <Section className="overflow-hidden border-y border-white/5 bg-white/[0.02]">
       <div className="mx-auto max-w-7xl">
         <FadeUp className="px-4 md:px-8">
-          <SectionLabel>Tech Stack</SectionLabel>
-          <SectionTitle>Master the Complete Agentic AI Tech Stack</SectionTitle>
-          <SectionSubtitle>
-            Learn the same tools used by AI startups, automation agencies, and
-            modern businesses to build production-ready AI systems.
-          </SectionSubtitle>
+          <div id="tools" className="scroll-mt-28">
+            <SectionLabel>Tech Stack</SectionLabel>
+            <SectionTitle>Master the Complete Agentic AI Tech Stack</SectionTitle>
+            <SectionSubtitle>
+              Learn the same tools used by AI startups, automation agencies, and
+              modern businesses to build production-ready AI systems.
+            </SectionSubtitle>
+          </div>
         </FadeUp>
 
         <div className="mt-12 space-y-6">
@@ -192,15 +195,17 @@ export function ToolsSection() {
 
 export function CurriculumSection() {
   return (
-    <Section id="curriculum">
+    <Section>
       <div className="mx-auto max-w-7xl">
         <FadeUp>
-          <SectionLabel>Curriculum</SectionLabel>
-          <SectionTitle>4-WEEK AI AGENTS & AUTOMATION MASTER PROGRAM</SectionTitle>
-          <SectionSubtitle>
-            A structured, hands-on journey from AI foundations to deploying
-            your own AI Employee.
-          </SectionSubtitle>
+          <div id="curriculum" className="scroll-mt-28">
+            <SectionLabel>Curriculum</SectionLabel>
+            <SectionTitle>4-WEEK AI AGENTS & AUTOMATION MASTER PROGRAM</SectionTitle>
+            <SectionSubtitle>
+              A structured, hands-on journey from AI foundations to deploying
+              your own AI Employee.
+            </SectionSubtitle>
+          </div>
         </FadeUp>
 
         <div className="relative mt-16">
@@ -371,11 +376,13 @@ export function FAQSection() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <Section id="faq" className="border-t border-white/5 bg-white/[0.02]">
+    <Section className="border-t border-white/5 bg-white/[0.02]">
       <div className="mx-auto max-w-3xl">
         <FadeUp className="text-center">
-          <SectionLabel>FAQ</SectionLabel>
-          <SectionTitle>FREQUENTLY ASKED QUESTIONS</SectionTitle>
+          <div id="faq" className="scroll-mt-28">
+            <SectionLabel>FAQ</SectionLabel>
+            <SectionTitle>FREQUENTLY ASKED QUESTIONS</SectionTitle>
+          </div>
         </FadeUp>
 
         <div className="mt-12 space-y-3">
@@ -441,15 +448,11 @@ export function FinalCTASection() {
             <GlowButton variant="primary" modalAction="enroll">
               Enroll in Cohort 1
             </GlowButton>
-            <GlowButton variant="secondary" href="#consultation">
+            <GlowButton variant="secondary" href={WHATSAPP_BOOKING_URL}>
               Book Free AI Career Consultation
             </GlowButton>
-            <GlowButton
-              variant="ghost"
-              href="https://wa.me/919999999999"
-              className="gap-2"
-            >
-              <MessageCircle className="size-4" />
+            <GlowButton variant="ghost" href={WHATSAPP_BOOKING_URL} className="gap-2">
+              <WhatsAppIcon className="size-4 text-[#25D366]" />
               Talk on WhatsApp
             </GlowButton>
           </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono, Poppins } from "next/font/google"
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider"
 import { CustomCursor } from "@/components/ui/custom-cursor"
 import "./globals.css"
@@ -13,6 +13,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+})
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["700"],
 })
 
 export const metadata: Metadata = {
@@ -46,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full dark`}
+      className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full dark`}
     >
       <body className="min-h-full overflow-x-hidden antialiased">
         <SmoothScrollProvider>

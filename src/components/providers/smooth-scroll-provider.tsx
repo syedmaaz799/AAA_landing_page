@@ -1,6 +1,7 @@
 "use client"
 
 import { ReactLenis, useLenis } from "lenis/react"
+import { getAnchorScrollTarget } from "@/lib/anchor-scroll"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { frame } from "motion-dom"
@@ -14,6 +15,24 @@ function AnchorScrollHandler() {
   useEffect(() => {
     if (!lenis) return
 
+    const scrollToAnchor = (hash: string) => {
+      const element = document.querySelector(hash) as HTMLElement | null
+      if (!element) return false
+
+      ScrollTrigger.refresh()
+
+      const target = getAnchorScrollTarget(element, lenis.scroll)
+
+      lenis.scrollTo(target, {
+        duration: 1.2,
+        onComplete: () => {
+          ScrollTrigger.refresh()
+          ScrollTrigger.update()
+        },
+      })
+      return true
+    }
+
     const handleClick = (event: MouseEvent) => {
       const target = (event.target as HTMLElement).closest('a[href^="#"]')
       if (!target) return
@@ -25,10 +44,21 @@ function AnchorScrollHandler() {
       if (!element) return
 
       event.preventDefault()
-      lenis.scrollTo(element, { offset: -88, duration: 1.2 })
+      scrollToAnchor(href)
+    }
+
+    const handleHashLoad = () => {
+      const hash = window.location.hash
+      if (!hash || hash === "#") return
+
+      requestAnimationFrame(() => {
+        scrollToAnchor(hash)
+      })
     }
 
     document.addEventListener("click", handleClick)
+    handleHashLoad()
+
     return () => document.removeEventListener("click", handleClick)
   }, [lenis])
 

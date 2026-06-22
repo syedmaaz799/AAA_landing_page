@@ -10,6 +10,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-geist-sans);
+  --font-brand: var(--font-poppins);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -195,440 +196,8 @@
   will-change: transform, opacity;
 }
 
-@keyframes orbit-spin-cw {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes orbit-spin-ccw {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-.orbit-ring-cw {
-  animation: orbit-spin-cw linear infinite;
-  transform-origin: center center;
-  will-change: transform;
-}
-
-.orbit-ring-ccw {
-  animation: orbit-spin-ccw linear infinite;
-  transform-origin: center center;
-  will-change: transform;
-}
-
-@keyframes orbit-float {
-  0%,
-  100% {
-    transform: translate3d(-50%, -50%, 0);
-  }
-  50% {
-    transform: translate3d(-50%, calc(-50% - 6px), 0);
-  }
-}
-
-.orbit-float {
-  animation: orbit-float 4s ease-in-out infinite;
-}
-
-.orbit-float-slow {
-  animation: orbit-float 5s ease-in-out infinite;
-}
-
-.orbit-glow {
-  animation: orbit-glow-pulse 4s ease-in-out infinite;
-}
-
-@keyframes orbit-glow-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 40px 8px rgba(63, 169, 255, 0.25);
-  }
-  50% {
-    box-shadow: 0 0 55px 12px rgba(124, 200, 255, 0.3);
-  }
-}
-
-@keyframes orbit-chip-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -8px, 0);
-  }
-}
-
-@keyframes orbit-core-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-@keyframes orbit-nebula-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.85;
-  }
-  50% {
-    transform: translate3d(0, -12px, 0) scale(1.04);
-    opacity: 1;
-  }
-}
-
-.hero-orbit-section {
-  position: relative;
-  width: 100%;
-}
-
-/* Jupyter Planet â€” transparent hero universe */
-.jupyter-universe-section,
-.jupyter-universe-stage,
-.jupyter-universe {
-  background: transparent;
-}
-
-.jupyter-universe-stage {
-  perspective: 1200px;
-  transform-style: preserve-3d;
-}
-
-.jupyter-universe {
-  transform-style: preserve-3d;
-}
-
-.jupyter-orbit-upright {
-  transform-origin: center center;
-}
-
-.jupyter-particle {
-  opacity: 0.15;
-  animation: jupyter-particle-drift ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-@keyframes jupyter-particle-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 0.1;
-  }
-  50% {
-    transform: translate3d(0, -14px, 0);
-    opacity: 0.2;
-  }
-}
-
-.jupyter-streak {
-  animation: jupyter-streak-drift 12s ease-in-out infinite;
-}
-
-.jupyter-streak-b {
-  animation-delay: 4s;
-}
-
-@keyframes jupyter-streak-drift {
-  0%,
-  100% {
-    opacity: 0.1;
-    transform: scaleX(0.85);
-  }
-  50% {
-    opacity: 0.18;
-    transform: scaleX(1.05);
-  }
-}
-
-.jupyter-planet {
-  background: radial-gradient(
-    circle at 35% 30%,
-    rgba(255, 210, 100, 0.35),
-    rgba(63, 169, 255, 0.2),
-    rgba(40, 15, 0, 0.85)
-  );
-  box-shadow:
-    0 0 100px rgba(63, 169, 255, 0.25),
-    0 0 160px rgba(255, 120, 0, 0.12);
-}
-
-.jupyter-planet-outer-glow {
-  position: absolute;
-  inset: -28px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(63, 169, 255, 0.14), transparent 72%);
-  filter: blur(12px);
-  pointer-events: none;
-}
-
-.jupyter-planet-wrap {
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.jupyter-planet-rotator {
-  animation: jupyter-planet-rotate 120s linear infinite;
-  will-change: transform;
-}
-
-@keyframes jupyter-planet-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.jupyter-planet-shimmer {
-  background: conic-gradient(
-    from 0deg,
-    transparent,
-    rgba(124, 200, 255, 0.08),
-    transparent,
-    rgba(255, 210, 100, 0.06),
-    transparent
-  );
-  animation: jupyter-planet-shimmer 18s linear infinite;
-  mix-blend-mode: screen;
-}
-
-@keyframes jupyter-planet-shimmer {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.jupyter-planet-atmosphere {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.jupyter-planet-atmosphere-1 {
-  inset: -18px;
-  background: radial-gradient(circle, rgba(63, 169, 255, 0.1), transparent 70%);
-}
-
-.jupyter-planet-atmosphere-2 {
-  inset: -34px;
-  background: radial-gradient(circle, rgba(255, 196, 90, 0.15), transparent 72%);
-}
-
-.jupyter-planet-atmosphere-3 {
-  inset: -52px;
-  background: radial-gradient(circle, rgba(124, 200, 255, 0.08), transparent 75%);
-  filter: blur(8px);
-}
-
-.jupyter-planet-core {
-  animation: jupyter-planet-core-pulse 6s ease-in-out infinite;
-  will-change: transform;
-}
-
-.jupyter-planet-brain {
-  filter: drop-shadow(0 0 20px rgba(124, 200, 255, 0.5));
-}
-
-@keyframes jupyter-planet-core-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-}
-
-.jupyter-orbit-track {
-  border: 1px solid rgba(124, 200, 255, 0.08);
-  box-shadow: 0 0 24px rgba(63, 169, 255, 0.04);
-}
-
-.jupyter-orbit-rotator-inner {
-  animation: orbit-spin-cw 40s linear infinite;
-  transform-origin: center center;
-}
-
-.jupyter-orbit-counter-inner {
-  animation: orbit-spin-ccw 40s linear infinite;
-  transform-origin: center center;
-}
-
-.jupyter-orbit-rotator-middle {
-  animation: orbit-spin-ccw 70s linear infinite;
-  transform-origin: center center;
-}
-
-.jupyter-orbit-counter-middle {
-  animation: orbit-spin-cw 70s linear infinite;
-  transform-origin: center center;
-}
-
-.jupyter-orbit-rotator-outer {
-  animation: orbit-spin-cw 100s linear infinite;
-  transform-origin: center center;
-}
-
-.jupyter-orbit-counter-outer {
-  animation: orbit-spin-ccw 100s linear infinite;
-  transform-origin: center center;
-}
-
-.jupyter-moon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: rgba(10, 10, 10, 0.75);
-  border: 1px solid rgba(124, 200, 255, 0.15);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.jupyter-moon-label {
-  transform: none !important;
-  writing-mode: horizontal-tb;
-  text-orientation: mixed;
-  line-height: 1.4;
-  z-index: 2;
-}
-
-.group:hover .jupyter-moon {
-  transform: translate3d(0, -6px, 0) scale(1.12);
-  border-color: rgba(124, 200, 255, 0.4);
-  box-shadow: 0 0 40px rgba(63, 169, 255, 0.3);
-}
-
-.jupyter-paused,
-.jupyter-paused * {
-  animation-play-state: paused !important;
-}
-
-.ai-ecosystem-section,
-.ai-ecosystem-stage {
-  background: transparent;
-}
-
-.ai-ecosystem-paused,
-.ai-ecosystem-paused * {
-  animation-play-state: paused !important;
-}
-
-/* Legacy ai-workflow aliases â€” kept for reduced-motion block */
-.ai-workflow-paused,
-.ai-workflow-paused * {
-  animation-play-state: paused !important;
-}
-
-.hero-orbit-stage {
-  min-height: min(72vh, 760px);
-}
-
-.hero-orbit-nebula {
-  background: radial-gradient(
-    circle at center,
-    rgba(63, 169, 255, 0.18),
-    transparent 70%
-  );
-  animation: orbit-nebula-drift 12s ease-in-out infinite;
-}
-
-.hero-orbit-streak {
-  filter: blur(20px);
-  opacity: 0.15;
-  animation: streak-pulse 8s ease-in-out infinite;
-}
-
-.hero-orbit-core {
-  box-shadow:
-    0 0 80px rgba(63, 169, 255, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  animation: orbit-core-pulse 4s ease-in-out infinite;
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-}
-
-.hero-orbit-brain {
-  filter: drop-shadow(0 0 18px rgba(124, 200, 255, 0.45));
-}
-
-.hero-orbit-core-rays {
-  inset: -40px;
-  background:
-    conic-gradient(
-      from 0deg,
-      transparent,
-      rgba(63, 169, 255, 0.08),
-      transparent,
-      rgba(124, 200, 255, 0.06),
-      transparent
-    );
-  border-radius: 50%;
-  animation: orbit-spin-cw 24s linear infinite;
-  opacity: 0.7;
-}
-
-.orbit-tool-chip {
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-}
-
-.orbit-chip-float-wrap {
-  transform: translate3d(0, 0, 0);
-  will-change: transform;
-}
-
-.orbit-paused,
-.orbit-paused * {
-  animation-play-state: paused !important;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .hero-particle,
-  .orbit-ring-cw,
-  .orbit-ring-ccw,
-  .orbit-float,
-  .orbit-float-slow,
-  .orbit-glow,
-  .hero-orbit-core,
-  .hero-orbit-core-rays,
-  .hero-orbit-nebula,
-  .hero-orbit-streak,
-  .orbit-tool-chip,
-  .jupyter-planet-rotator,
-  .jupyter-planet-shimmer,
-  .jupyter-planet-core,
-  .jupyter-particle,
-  .jupyter-streak,
-  .jupyter-orbit-rotator-inner,
-  .jupyter-orbit-rotator-middle,
-  .jupyter-orbit-rotator-outer,
-  .jupyter-orbit-counter-inner,
-  .jupyter-orbit-counter-middle,
-  .jupyter-orbit-counter-outer,
-  .hero-light-streak,
   .animate-marquee-left,
   .animate-marquee-right {
     animation: none !important;
@@ -712,6 +281,17 @@
 
 .projects-showcase-viewport:hover .projects-showcase-track {
   animation-play-state: paused;
+}
+
+@media (max-width: 767px) {
+  .projects-showcase-track {
+    gap: 28px;
+    animation-duration: 34s;
+  }
+
+  .projects-showcase-fade {
+    width: 48px;
+  }
 }
 
 @keyframes projects-marquee {
@@ -1463,28 +1043,24 @@
   text-wrap: balance;
 }
 
-/* Program includes â€” horizontal showcase */
-.program-includes-bg {
-  background: radial-gradient(
-    ellipse at center,
-    rgba(63, 169, 255, 0.04),
-    transparent 70%
-  );
-}
-
+/* Program includes — horizontal showcase */
 .includes-scroll-section {
   width: 100%;
   max-width: 100%;
   position: relative;
   background: transparent;
+  touch-action: pan-y;
 }
 
 .includes-pin-panel {
   height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   transform: translate3d(0, 0, 0);
+  touch-action: pan-y;
 }
 
 .includes-pin-content {
@@ -1495,6 +1071,7 @@
   width: 100%;
   max-width: 100%;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .includes-track {
@@ -1507,13 +1084,36 @@
   overflow: visible;
   transform: translate3d(0, 0, 0);
   will-change: transform;
+  touch-action: pan-y;
 }
 
 .includes-section-header,
-.includes-mobile-section,
 .program-include-slide-card {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+.includes-scroll-hint {
+  animation: projects-glow-pulse 4s ease-in-out infinite;
+}
+
+@media (max-width: 1023px) {
+  .includes-track {
+    gap: 24px;
+    padding-left: max(1rem, 7.5vw);
+    padding-right: max(1rem, 7.5vw);
+  }
+
+  .includes-section-header h2 {
+    font-size: clamp(1.35rem, 5.8vw, 2rem);
+    line-height: 1.15;
+  }
+
+  .includes-section-header p {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
 }
 
 .program-include-slide-card {
@@ -1569,21 +1169,9 @@
   pointer-events: none;
 }
 
-.includes-carousel {
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
-.includes-mobile-card {
-  scroll-snap-align: start;
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .includes-mobile-card {
-    width: 340px;
-    min-width: 340px;
-    max-width: 340px;
+@media (prefers-reduced-motion: reduce) {
+  .includes-scroll-hint {
+    animation: none !important;
   }
 }
 
@@ -1607,13 +1195,70 @@
     touch-action: pan-y;
   }
 
+  .workflow-text-column {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: grid;
+    height: 100%;
+    place-items: center;
+    padding: 4.25rem 1.25rem 3.75rem;
+  }
+
+  .workflow-text-inner {
+    width: 100%;
+    max-width: 24rem;
+  }
+
+  .workflow-canvas-zone {
+    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+  }
+
+  .workflow-headline {
+    font-size: clamp(1.45rem, 6.2vw, 2rem);
+    line-height: 1.08;
+  }
+
+  .workflow-description {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+
+  .workflow-cap-list {
+    gap: 0.45rem;
+  }
+
+  .workflow-cap-item {
+    font-size: 0.6875rem;
+  }
+
+  .phrase-stack {
+    width: 100%;
+    height: clamp(16.5rem, 38dvh, 21rem);
+    flex: none;
+  }
+
+  .phrase-panel > div {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .workflow-readability {
     background: linear-gradient(
       180deg,
-      rgba(2, 4, 11, 0.92) 0%,
-      rgba(2, 4, 11, 0.72) 28%,
-      rgba(2, 4, 11, 0.2) 62%,
-      rgba(2, 4, 11, 0) 100%
+      rgba(2, 4, 11, 0.88) 0%,
+      rgba(2, 4, 11, 0.55) 38%,
+      rgba(2, 4, 11, 0.45) 52%,
+      rgba(2, 4, 11, 0.55) 68%,
+      rgba(2, 4, 11, 0.82) 100%
     );
   }
 
@@ -1861,18 +1506,5 @@
     background: none !important;
     -webkit-background-clip: unset !important;
     background-clip: unset !important;
-  }
-
-  .workflow-text-column {
-    justify-content: flex-start;
-  }
-
-  .phrase-stack {
-    flex: none;
-    width: 100%;
-  }
-
-  .phrase-panel > div {
-    justify-content: flex-start;
   }
 }

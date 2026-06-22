@@ -2,7 +2,7 @@
 
 import "./who-should-join.css"
 
-import { memo, useEffect, useMemo, useRef } from "react"
+import { memo, useMemo } from "react"
 import {
   ArrowRightLeft,
   BarChart3,
@@ -158,69 +158,19 @@ const WhoJoinCard = memo(function WhoJoinCard({
   )
 })
 
-function useWheelToHorizontalScroll(
-  ref: React.RefObject<HTMLDivElement | null>,
-  enabled: boolean
-) {
-  useEffect(() => {
-    if (!enabled) return
-    const el = ref.current
-    if (!el) return
-
-    const onWheel = (event: WheelEvent) => {
-      const delta =
-        Math.abs(event.deltaX) > Math.abs(event.deltaY)
-          ? event.deltaX
-          : event.deltaY
-      if (delta === 0) return
-      event.preventDefault()
-      el.scrollLeft += delta
-    }
-
-    el.addEventListener("wheel", onWheel, { passive: false })
-    return () => el.removeEventListener("wheel", onWheel)
-  }, [ref, enabled])
-}
-
 function WhoJoinMarqueeRow({
   cards,
   direction,
   rowIndex,
-  mobileOnly,
 }: {
   cards: AudienceCard[]
   direction: "left" | "right"
   rowIndex: number
-  mobileOnly?: boolean
 }) {
-  const scrollRef = useRef<HTMLDivElement>(null)
   const looped = useMemo(() => [...cards, ...cards], [cards])
-  useWheelToHorizontalScroll(scrollRef, Boolean(mobileOnly))
 
   const trackClass =
     direction === "left" ? "who-join-track-top" : "who-join-track-bottom"
-
-  if (mobileOnly) {
-    return (
-      <div className="who-join-row">
-        <div className="who-join-fade who-join-fade-left" aria-hidden="true" />
-        <div className="who-join-fade who-join-fade-right" aria-hidden="true" />
-        <div
-          ref={scrollRef}
-          className="who-join-scroll"
-          aria-label={`Who should join cards row ${rowIndex + 1}`}
-        >
-          {cards.map((card, index) => (
-            <WhoJoinCard
-              key={`${rowIndex}-mobile-${card.title}`}
-              card={card}
-              index={index + rowIndex * 6}
-            />
-          ))}
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="who-join-row">
@@ -279,26 +229,9 @@ export function WhoShouldJoinSection() {
           </SectionSubtitle>
         </FadeUp>
 
-        {/* Desktop + tablet: infinite marquee rows */}
-        <div className="who-join-wrapper hidden md:block">
+        <div className="who-join-wrapper">
           <WhoJoinMarqueeRow cards={ROW_ONE} direction="left" rowIndex={0} />
           <WhoJoinMarqueeRow cards={ROW_TWO} direction="right" rowIndex={1} />
-        </div>
-
-        {/* Mobile: swipeable card rows */}
-        <div className="who-join-wrapper md:hidden">
-          <WhoJoinMarqueeRow
-            cards={ROW_ONE}
-            direction="left"
-            rowIndex={0}
-            mobileOnly
-          />
-          <WhoJoinMarqueeRow
-            cards={ROW_TWO}
-            direction="right"
-            rowIndex={1}
-            mobileOnly
-          />
         </div>
 
         <FadeUp className="relative mx-auto mt-16 flex max-w-[900px] flex-col items-center px-2 text-center md:mt-20">

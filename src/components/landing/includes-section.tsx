@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useLenis } from "lenis/react"
 import { motion } from "framer-motion"
 import {
   Award,
@@ -21,6 +22,7 @@ import {
 import { cn } from "@/lib/utils"
 
 gsap.registerPlugin(ScrollTrigger)
+ScrollTrigger.config({ ignoreMobileResize: true })
 
 const revealEase = [0.22, 1, 0.36, 1] as const
 
@@ -99,8 +101,8 @@ const PROGRAM_INCLUDE_ITEMS: IncludeItem[] = [
   },
 ]
 
-function getHorizontalDistance(track: HTMLElement) {
-  return Math.max(0, track.scrollWidth - window.innerWidth + 80)
+function getHorizontalDistance(track: HTMLElement, viewport: HTMLElement) {
+  return Math.max(0, track.scrollWidth - viewport.clientWidth)
 }
 
 function SectionHeader({ animated = true }: { animated?: boolean }) {
@@ -157,23 +159,13 @@ function SectionHeader({ animated = true }: { animated?: boolean }) {
   )
 }
 
-function IncludeCard({
-  item,
-  variant = "desktop",
-}: {
-  item: IncludeItem
-  variant?: "desktop" | "mobile"
-}) {
+function IncludeCard({ item }: { item: IncludeItem }) {
   const Icon = item.icon
 
   return (
     <article
       className={cn(
-        "program-include-slide-card group relative flex shrink-0 flex-col overflow-hidden rounded-[32px] border border-sky-500/[0.18] p-8",
-        variant === "desktop" &&
-          "includes-desktop-card h-[260px] w-[380px] min-w-[380px]",
-        variant === "mobile" &&
-          "includes-mobile-card h-auto min-h-[260px] w-[90vw] max-w-[380px] snap-start",
+        "program-include-slide-card group relative flex h-auto min-h-[260px] w-[85vw] max-w-[380px] shrink-0 flex-col overflow-hidden rounded-[32px] border border-sky-500/[0.18] p-8 lg:h-[260px] lg:w-[380px] lg:min-w-[380px]",
         item.featured && "program-include-card-featured"
       )}
     >
@@ -190,121 +182,126 @@ function IncludeCard({
         </div>
       </div>
 
-      <h3
-        className={cn(
-          "relative shrink-0 font-bold leading-tight text-white",
-          variant === "desktop" ? "mb-3 text-xl" : "mb-4 text-2xl"
-        )}
-      >
+      <h3 className="relative mb-3 shrink-0 text-xl leading-tight font-bold text-white lg:mb-3">
         {item.title}
       </h3>
-      <p
-        className={cn(
-          "relative min-h-0 text-white/75",
-          variant === "desktop"
-            ? "flex-1 text-[15px] leading-[1.65]"
-            : "text-base leading-[1.75] lg:text-lg lg:leading-[1.8]"
-        )}
-      >
+      <p className="relative min-h-0 flex-1 text-[15px] leading-[1.65] text-white/75">
         {item.description}
       </p>
     </article>
   )
 }
 
-function DesktopPinnedIncludes() {
+function PinnedIncludesScroll() {
   const sectionRef = useRef<HTMLElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const lenis = useLenis()
 
   useEffect(() => {
+    if (!lenis) return
+
     const section = sectionRef.current
     const track = trackRef.current
-    if (!section || !track) return
+    const viewport = viewportRef.current
+    if (!section || !track || !viewport) return
 
-    let ctx: gsap.Context | undefined
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    if (reducedMotion.matches) return
 
     const mm = gsap.matchMedia()
 
-    mm.add("(min-width: 1024px)", () => {
-      ctx = gsap.context(() => {
-        const buildAnimation = () => {
-          gsap.set(track, { x: 0, force3D: true })
+    const buildScrollTrigger = (
+      endScale: number,
+      scrub: number | boolean,
+      pinType: "fixed" | "transform",
+    ) => {
+      let ctx: gsap.Context | undefined
 
-          gsap.to(track, {
-            x: () => -getHorizontalDistance(track),
-            ease: "none",
-            force3D: true,
-            scrollTrigger: {
-              trigger: section,
-              start: "top top",
-              end: () => `+=${getHorizontalDistance(track)}`,
-              scrub: 1,
-              pin: true,
-              invalidateOnRefresh: true,
-              anticipatePin: 1,
-            },
-          })
-        }
-
-        buildAnimation()
+      const refreshLayout = () => {
+        lenis.resize()
         ScrollTrigger.refresh()
+      }
+
+      ctx = gsap.context(() => {
+        gsap.set(track, { x: 0, force3D: true })
+
+        gsap.to(track, {
+          x: () => -getHorizontalDistance(track, viewport),
+          ease: "none",
+          force3D: true,
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => {
+              const distance = getHorizontalDistance(track, viewport)
+              return `+=${Math.max(520, Math.round(distance * endScale))}`
+            },
+            scrub,
+            pin: true,
+            pinType,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
+            onRefresh(self) {
+              self.update()
+            },
+          },
+        })
       }, section)
 
-      const onResize = () => {
-        ScrollTrigger.refresh()
-      }
+      refreshLayout()
+      requestAnimationFrame(refreshLayout)
+      const refreshTimer = window.setTimeout(refreshLayout, 350)
 
-      window.addEventListener("resize", onResize, { passive: true })
+      window.addEventListener("resize", refreshLayout, { passive: true })
+      window.addEventListener("orientationchange", refreshLayout, {
+        passive: true,
+      })
+      window.visualViewport?.addEventListener("resize", refreshLayout)
 
       return () => {
-        window.removeEventListener("resize", onResize)
+        window.clearTimeout(refreshTimer)
+        window.removeEventListener("resize", refreshLayout)
+        window.removeEventListener("orientationchange", refreshLayout)
+        window.visualViewport?.removeEventListener("resize", refreshLayout)
         ctx?.revert()
       }
-    })
-
-    return () => {
-      mm.revert()
     }
-  }, [])
+
+    mm.add("(min-width: 1024px)", () => buildScrollTrigger(1, 1, "fixed"))
+    mm.add("(max-width: 1023px)", () => buildScrollTrigger(0.82, true, "transform"))
+
+    return () => mm.revert()
+  }, [lenis])
 
   return (
     <section
       ref={sectionRef}
-      className="includes-scroll-section relative hidden overflow-x-hidden overflow-y-visible lg:block"
+      className="includes-scroll-section relative overflow-x-hidden overflow-y-visible"
+      data-lenis-prevent-touch
     >
-      <div className="includes-pin-panel flex h-screen w-full max-w-full flex-col justify-center overflow-hidden py-6">
-        <div className="includes-pin-content mx-auto flex w-full max-w-full flex-col justify-center">
-          <div className="mb-[clamp(3rem,8vh,6.25rem)]">
+      <div className="includes-pin-panel flex h-screen w-full max-w-full flex-col justify-center overflow-hidden py-4 md:py-6">
+        <div className="includes-pin-content mx-auto flex w-full max-w-full min-h-0 flex-col justify-center">
+          <div className="includes-header-wrap mb-[clamp(0.75rem,2vh,6.25rem)] shrink-0">
             <SectionHeader animated={false} />
           </div>
 
-          <div className="includes-track-viewport mt-[clamp(2rem,5vh,3.75rem)] w-full overflow-hidden">
+          <div
+            ref={viewportRef}
+            className="includes-track-viewport mt-[clamp(0.5rem,2vh,3.75rem)] min-h-0 w-full flex-1 overflow-hidden"
+          >
             <div ref={trackRef} className="includes-track">
               {PROGRAM_INCLUDE_ITEMS.map((item) => (
-                <IncludeCard key={item.title} item={item} variant="desktop" />
+                <IncludeCard key={item.title} item={item} />
               ))}
             </div>
           </div>
+
+          <p className="includes-scroll-hint mt-[clamp(0.75rem,2vh,2rem)] shrink-0 text-center text-xs text-zinc-500">
+            Scroll to explore all program benefits →
+          </p>
         </div>
       </div>
-    </section>
-  )
-}
-
-function MobileHorizontalCarousel() {
-  return (
-    <section className="includes-mobile-section relative overflow-x-hidden py-[140px] lg:hidden">
-      <SectionHeader />
-
-      <div className="includes-carousel mt-[60px] flex gap-8 overflow-x-auto overscroll-x-contain px-[5vw] pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {PROGRAM_INCLUDE_ITEMS.map((item) => (
-          <IncludeCard key={item.title} item={item} variant="mobile" />
-        ))}
-      </div>
-
-      <p className="mt-8 text-center text-xs text-zinc-500">
-        Swipe to explore all program benefits →
-      </p>
     </section>
   )
 }
@@ -312,8 +309,7 @@ function MobileHorizontalCarousel() {
 export function IncludesSection() {
   return (
     <div id="includes" className="scroll-mt-28">
-      <DesktopPinnedIncludes />
-      <MobileHorizontalCarousel />
+      <PinnedIncludesScroll />
     </div>
   )
 }

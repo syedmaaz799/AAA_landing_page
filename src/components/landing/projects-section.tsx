@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useEffect, useMemo, useRef } from "react"
+import { memo, useMemo } from "react"
 import {
   Bot,
   Brain,
@@ -107,55 +107,13 @@ function ProjectsMarquee() {
   )
 
   return (
-    <div className="projects-showcase-viewport relative hidden md:block">
+    <div className="projects-showcase-viewport relative">
       <div className="projects-showcase-fade projects-showcase-fade-left" />
       <div className="projects-showcase-fade projects-showcase-fade-right" />
       <div className="projects-showcase-track">
         {trackItems.map((project, index) => (
           <ProjectCard
             key={`${project.number}-${index}`}
-            project={project}
-            floatIndex={index}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function ProjectsMobileCarousel() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-
-    const onWheel = (event: WheelEvent) => {
-      const delta =
-        Math.abs(event.deltaX) > Math.abs(event.deltaY)
-          ? event.deltaX
-          : event.deltaY
-      if (delta === 0) return
-      event.preventDefault()
-      el.scrollLeft += delta
-    }
-
-    el.addEventListener("wheel", onWheel, { passive: false })
-    return () => el.removeEventListener("wheel", onWheel)
-  }, [])
-
-  return (
-    <div className="projects-showcase-shell relative mt-14 md:hidden">
-      <div className="projects-showcase-fade projects-showcase-fade-left" />
-      <div className="projects-showcase-fade projects-showcase-fade-right" />
-      <div
-        ref={scrollRef}
-        className="projects-showcase-scroll flex flex-nowrap gap-10 pb-4"
-        aria-label="Project portfolio carousel"
-      >
-        {PORTFOLIO_PROJECTS.map((project, index) => (
-          <ProjectCard
-            key={project.number}
             project={project}
             floatIndex={index}
           />
@@ -198,10 +156,9 @@ export function ProjectsSection() {
 
         <div className="mt-14">
           <ProjectsMarquee />
-          <ProjectsMobileCarousel />
         </div>
 
-        <p className="projects-showcase-hint mt-6 text-center text-sm text-zinc-500">
+        <p className="projects-showcase-hint mt-6 hidden text-center text-sm text-zinc-500 md:block">
           Scroll horizontally to explore projects
         </p>
       </div>

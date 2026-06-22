@@ -26,32 +26,6 @@ export const HERO_STATS = [
   "No Coding Background Required",
 ] as const
 
-export const ORBIT_TOOLS = [
-  "ChatGPT",
-  "Claude",
-  "Gemini",
-  "DeepSeek",
-  "n8n",
-  "Dify",
-  "Flowise",
-  "LangFlow",
-  "CrewAI",
-  "BuildMyAgent",
-  "Emergent",
-  "Zapier",
-  "Bubble",
-  "Lovable",
-  "Supabase",
-  "OpenClaw",
-  "MCP",
-  "Make",
-  "Perplexity",
-  "NotebookLM",
-  "Cursor AI",
-  "GitHub",
-  "OpenRouter",
-] as const
-
 export const MARQUEE_ROW_1 = [
   "ChatGPT",
   "Claude",

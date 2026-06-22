@@ -162,6 +162,20 @@
   animation: who-join-marquee-right 40s linear infinite;
 }
 
+@media (max-width: 767px) {
+  .who-join-track-top {
+    animation-duration: 34s;
+  }
+
+  .who-join-track-bottom {
+    animation-duration: 34s;
+  }
+
+  .who-join-fade {
+    width: 48px;
+  }
+}
+
 .who-join-viewport:hover .who-join-track {
   animation-play-state: paused;
 }

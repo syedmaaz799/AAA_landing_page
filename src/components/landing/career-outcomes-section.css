@@ -1,5 +1,16 @@
-.career-outcomes-section {
+.career-outcomes-scroll-section {
+  width: 100%;
+  max-width: 100%;
   background: #02040b;
+}
+
+.career-outcomes-pin-panel {
+  position: relative;
+  transform: translate3d(0, 0, 0);
+}
+
+.career-outcomes-pin-content {
+  width: 100%;
 }
 
 .career-outcomes-ambient {
@@ -51,17 +62,71 @@
   box-shadow: 0 20px 60px rgba(63, 169, 255, 0.1);
   backdrop-filter: blur(12px);
   transition:
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.career-outcome-card:hover {
-  transform: translateY(-10px) scale(1.03);
-  border-color: rgba(63, 169, 255, 0.4);
+.career-carousel {
+  --career-slide-w: min(380px, 84vw);
+  --career-card-h: 320px;
+  contain: layout paint;
+}
+
+.career-carousel-viewport {
+  position: relative;
+  overflow: hidden;
+  height: calc(var(--career-card-h) + 48px);
+  touch-action: pan-y pinch-zoom;
+}
+
+.career-carousel-track {
+  position: relative;
+  height: var(--career-card-h);
+  transform-style: preserve-3d;
+  perspective: 1100px;
+}
+
+.career-carousel-slide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--career-slide-w);
+  height: var(--career-card-h);
+  transform-style: preserve-3d;
+  display: grid;
+  place-items: center;
+  will-change: transform, filter;
+}
+
+.career-carousel-card {
+  width: 100%;
+  transform: translate3d(
+    var(--career-par-x, 0px),
+    var(--career-par-y, 0px),
+    0
+  );
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.career-carousel-slide[data-state="active"] .career-outcome-card {
+  border-color: rgba(63, 169, 255, 0.42);
   box-shadow:
-    0 30px 80px rgba(63, 169, 255, 0.2),
-    0 0 40px rgba(63, 169, 255, 0.08);
+    0 28px 72px rgba(63, 169, 255, 0.22),
+    0 0 48px rgba(63, 169, 255, 0.1);
+}
+
+.career-carousel .career-outcome-card:hover {
+  transform: translate3d(
+    var(--career-par-x, 0px),
+    var(--career-par-y, 0px),
+    0
+  );
+}
+
+@media (max-width: 768px) {
+  .career-carousel {
+    --career-slide-w: min(300px, 88vw);
+  }
 }
 
 .career-outcome-icon {
@@ -98,6 +163,44 @@
 @media (prefers-reduced-motion: reduce) {
   .career-outcomes-particle {
     animation: none;
+  }
+
+  .career-outcomes-pin-panel {
+    height: auto;
+    min-height: auto;
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .career-carousel-scroll-hint {
+    display: none;
+  }
+
+  .career-carousel-viewport {
+    height: auto;
+    overflow: visible;
+  }
+
+  .career-carousel-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+    height: auto;
+    perspective: none;
+  }
+
+  .career-carousel-slide {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    height: auto;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .career-carousel-controls {
+    display: none;
   }
 
   .career-outcome-card,

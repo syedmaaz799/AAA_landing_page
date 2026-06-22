@@ -8,15 +8,14 @@ import {
   useRef,
   type CSSProperties,
 } from "react"
+import {
+  getWorkflowFrameCache,
+  isWorkflowPreloadComplete,
+  preloadWorkflowFrames,
+} from "@/lib/workflow-frame-cache"
 
-const BLOCKING_FRAME_COUNT = 16
-const BLOCKING_CONCURRENCY = 12
-const BACKGROUND_CONCURRENCY = 8
-const MOBILE_PRELOAD_CONCURRENCY = 6
 const MAX_DPR = 2
 const MAX_DPR_MOBILE = 1.5
-
-type FrameSource = HTMLImageElement | ImageBitmap
 
 function isMobileCanvas(): boolean {
   if (typeof window === "undefined") return false
@@ -37,87 +36,11 @@ type SequenceCanvasProps = {
   onPreloadComplete?: () => void
 }
 
-function defaultFramePath(frame: number): string {
-  return `/frames/frame-${String(frame).padStart(3, "0")}.jpg`
-}
-
-function disposeFrameSource(source: FrameSource) {
-  if (typeof ImageBitmap !== "undefined" && source instanceof ImageBitmap) {
-    source.close()
-  }
-}
-
-async function decodeImage(img: HTMLImageElement): Promise<void> {
-  if (!img.complete || !img.naturalWidth) return
-  if (typeof img.decode === "function") {
-    try {
-      await img.decode()
-    } catch {
-      // decode() can reject for broken images; draw path handles misses
-    }
-  }
-}
-
-async function loadAndDecodeFrame(
-  frame: number,
-  framePath: (frame: number) => string,
-): Promise<FrameSource | null> {
-  const img = new Image()
-  img.decoding = "async"
-
-  const loaded = await new Promise<boolean>((resolve) => {
-    img.onload = () => resolve(true)
-    img.onerror = () => resolve(false)
-    img.src = framePath(frame)
-  })
-
-  if (!loaded || !img.complete || !img.naturalWidth) return null
-
-  await decodeImage(img)
-
-  if (typeof createImageBitmap === "function") {
-    try {
-      return await createImageBitmap(img)
-    } catch {
-      return img
-    }
-  }
-
-  return img
-}
-
-async function loadFramesInBatches(
-  frames: number[],
-  concurrency: number,
-  store: Map<number, FrameSource>,
-  onFrameLoaded: () => void,
-  framePath: (frame: number) => string,
-): Promise<void> {
-  let index = 0
-
-  async function worker() {
-    while (index < frames.length) {
-      const current = frames[index++]
-      if (store.has(current)) continue
-
-      const source = await loadAndDecodeFrame(current, framePath)
-      if (source) store.set(current, source)
-      onFrameLoaded()
-    }
-  }
-
-  const workers = Array.from(
-    { length: Math.min(concurrency, frames.length) },
-    () => worker(),
-  )
-  await Promise.all(workers)
-}
-
 export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasProps>(
   function SequenceCanvas(
     {
       totalFrames,
-      framePath = defaultFramePath,
+      framePath,
       className,
       style,
       onPreloadProgress,
@@ -126,31 +49,33 @@ export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasPro
     ref,
   ) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
-    const framesRef = useRef<Map<number, FrameSource>>(new Map())
     const frameRef = useRef(1)
     const drawnFrameRef = useRef<number | null>(null)
     const rafRef = useRef<number | null>(null)
     const sizeRef = useRef({ width: 0, height: 0, dpr: 1 })
     const onPreloadProgressRef = useRef(onPreloadProgress)
     const onPreloadCompleteRef = useRef(onPreloadComplete)
-    const framePathRef = useRef(framePath)
 
     onPreloadProgressRef.current = onPreloadProgress
     onPreloadCompleteRef.current = onPreloadComplete
-    framePathRef.current = framePath
 
-    const findNearestLoadedFrame = useCallback((target: number): number | null => {
-      const frames = framesRef.current
-      if (frames.has(target)) return target
+    const getFrames = useCallback(() => getWorkflowFrameCache(), [])
 
-      for (let offset = 1; offset < totalFrames; offset++) {
-        const before = target - offset
-        const after = target + offset
-        if (before >= 1 && frames.has(before)) return before
-        if (after <= totalFrames && frames.has(after)) return after
-      }
-      return null
-    }, [totalFrames])
+    const findNearestLoadedFrame = useCallback(
+      (target: number): number | null => {
+        const frames = getFrames()
+        if (frames.has(target)) return target
+
+        for (let offset = 1; offset < totalFrames; offset++) {
+          const before = target - offset
+          const after = target + offset
+          if (before >= 1 && frames.has(before)) return before
+          if (after <= totalFrames && frames.has(after)) return after
+        }
+        return null
+      },
+      [getFrames, totalFrames],
+    )
 
     const drawFrame = useCallback(
       (force = false) => {
@@ -172,7 +97,7 @@ export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasPro
         const nearest = findNearestLoadedFrame(target)
         if (!nearest) return
 
-        const source = framesRef.current.get(nearest)
+        const source = getFrames().get(nearest)
         if (!source) return
 
         const cw = width * dpr
@@ -194,7 +119,7 @@ export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasPro
         ctx.drawImage(source, dx, dy, dw, dh)
         drawnFrameRef.current = target
       },
-      [findNearestLoadedFrame, totalFrames],
+      [findNearestLoadedFrame, getFrames, totalFrames],
     )
 
     const scheduleDraw = useCallback(
@@ -280,79 +205,36 @@ export const SequenceCanvas = forwardRef<SequenceCanvasHandle, SequenceCanvasPro
     }, [resizeCanvas])
 
     useEffect(() => {
-      const store = framesRef.current
-      for (const source of store.values()) {
-        disposeFrameSource(source)
-      }
-      store.clear()
       drawnFrameRef.current = null
+      let cancelled = false
 
-      const mobile = isMobileCanvas()
-      const allFrames = Array.from({ length: totalFrames }, (_, i) => i + 1)
-
-      let loaded = 0
-      let unlockReported = false
-
-      const reportProgress = () => {
-        loaded++
-        onPreloadProgressRef.current?.(loaded / totalFrames)
-      }
-
-      const reportUnlock = () => {
-        if (unlockReported) return
-        unlockReported = true
+      const finish = () => {
+        if (cancelled) return
         onPreloadCompleteRef.current?.()
         scheduleDraw(true)
       }
 
-      let cancelled = false
-
-      ;(async () => {
-        if (mobile) {
-          await loadFramesInBatches(
-            allFrames,
-            MOBILE_PRELOAD_CONCURRENCY,
-            store,
-            reportProgress,
-            framePathRef.current,
-          )
-
-          if (cancelled) return
-          reportUnlock()
-          return
+      if (isWorkflowPreloadComplete()) {
+        onPreloadProgressRef.current?.(1)
+        finish()
+        return () => {
+          cancelled = true
         }
+      }
 
-        const blockingFrames = allFrames.slice(0, BLOCKING_FRAME_COUNT)
-        const backgroundFrames = allFrames.slice(BLOCKING_FRAME_COUNT)
-
-        await loadFramesInBatches(
-          blockingFrames,
-          BLOCKING_CONCURRENCY,
-          store,
-          reportProgress,
-          framePathRef.current,
-        )
-
-        if (cancelled) return
-        reportUnlock()
-
-        void loadFramesInBatches(
-          backgroundFrames,
-          BACKGROUND_CONCURRENCY,
-          store,
-          reportProgress,
-          framePathRef.current,
-        )
-      })()
+      void preloadWorkflowFrames({
+        framePath,
+        onProgress: (progress) => {
+          if (!cancelled) onPreloadProgressRef.current?.(progress)
+        },
+      }).then(() => {
+        if (!cancelled) finish()
+      })
 
       return () => {
         cancelled = true
-        for (const source of store.values()) {
-          disposeFrameSource(source)
-        }
-        store.clear()
       }
-    }, [totalFrames, scheduleDraw])
+    }, [framePath, scheduleDraw, totalFrames])
 
     return (
       <canvas

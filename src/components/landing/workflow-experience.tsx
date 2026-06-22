@@ -4,7 +4,6 @@ import {
   useCallback,
   useEffect,
   useRef,
-  useState,
 } from "react"
 import { useLenis } from "lenis/react"
 import gsap from "gsap"
@@ -242,7 +241,7 @@ function WorkflowStagePanel({
       className="phrase-panel absolute inset-0 overflow-hidden"
       aria-hidden={index !== 0}
     >
-      <div className="flex h-full flex-col justify-start md:justify-center">
+      <div className="flex h-full flex-col justify-center">
         <div className="workflow-stage-tag mb-4 flex items-center gap-3 md:mb-7">
           <div className="workflow-stage-icon flex items-center justify-center">
             <Icon className="size-4 text-[#7CC8FF] md:size-5" aria-hidden />
@@ -283,11 +282,11 @@ export function WorkflowExperience() {
   const scrollTweenRef = useRef<gsap.core.Tween | null>(null)
 
   const frameStateRef = useRef({ frame: 1 })
-  const [isReady, setIsReady] = useState(false)
-  const [preloadProgress, setPreloadProgress] = useState(0)
+  const scrollReadyRef = useRef(false)
 
-  const handlePreloadComplete = useCallback(() => {
-    setIsReady(true)
+  const handleCanvasReady = useCallback(() => {
+    if (scrollReadyRef.current) return
+    scrollReadyRef.current = true
     refreshWorkflowScrollTrigger()
     requestAnimationFrame(() => {
       canvasHandleRef.current?.redraw()
@@ -488,9 +487,8 @@ export function WorkflowExperience() {
   }, [lenis])
 
   useEffect(() => {
-    if (!isReady) return
     refreshWorkflowScrollTrigger()
-  }, [isReady])
+  }, [])
 
   return (
     <section
@@ -503,56 +501,41 @@ export function WorkflowExperience() {
         ref={stageRef}
         className="workflow-stage relative w-full overflow-hidden bg-[#02040b]"
       >
-        <div
-          className={`workflow-loading-overlay pointer-events-none absolute inset-0 z-30 flex items-center justify-center bg-[#02040b] transition-opacity duration-500 ${
-            isReady ? "pointer-events-none invisible opacity-0" : "opacity-100"
-          }`}
-          aria-hidden={isReady}
-        >
-          <div className="flex flex-col items-center gap-4 px-6 text-center">
-            <p className="text-sm font-medium text-zinc-400">
-              Loading workflow frames…
-            </p>
-            <div className="h-1 w-48 overflow-hidden rounded-full bg-white/10">
-              <div
-                className="h-full rounded-full bg-[#3FA9FF] transition-[width] duration-200"
-                style={{ width: `${Math.round(preloadProgress * 100)}%` }}
-              />
-            </div>
-          </div>
-        </div>
-
         <div className="workflow-blueprint pointer-events-none absolute inset-0" />
         <div className="workflow-glow pointer-events-none absolute inset-0" />
         <div className="workflow-edge-fade-top pointer-events-none absolute inset-x-0 top-0 z-[1]" />
         <div className="workflow-edge-fade-bottom pointer-events-none absolute inset-x-0 bottom-0 z-[1]" />
 
-        <div className="canvas-vignette absolute inset-0 z-0 md:left-[40%]">
+        <div className="canvas-vignette workflow-canvas-zone absolute inset-0 z-0 md:left-[40%]">
           <SequenceCanvas
             ref={canvasHandleRef}
             totalFrames={TOTAL_FRAMES}
             className="workflow-sequence-canvas block h-full w-full"
-            onPreloadProgress={setPreloadProgress}
-            onPreloadComplete={handlePreloadComplete}
+            onPreloadComplete={handleCanvasReady}
           />
         </div>
 
         <div className="workflow-readability pointer-events-none absolute inset-y-0 left-0 w-full md:w-[58%]" />
 
-        <div className="workflow-text-column relative z-10 flex h-full w-full flex-col justify-start px-5 pb-[max(3rem,env(safe-area-inset-bottom))] pt-20 md:w-[48%] md:justify-center md:px-12 md:py-28 lg:px-20">
-          <WorkflowAnchor />
-          <div className="workflow-divider shrink-0" />
-          <div className="phrase-stack relative isolate max-md:flex-none max-md:min-h-[280px] overflow-hidden md:min-h-[420px] md:flex-1 lg:min-h-[460px]">
-            {WORKFLOW_SECTIONS.map((section, index) => (
-              <WorkflowStagePanel
-                key={section.step}
-                section={section}
-                index={index}
-                onPanelRef={(el) => {
-                  phrasePanelRefs.current[index] = el
-                }}
-              />
-            ))}
+        <div className="workflow-text-column relative z-10 flex w-full flex-col px-5 md:h-full md:w-[48%] md:justify-center md:px-12 md:py-28 lg:px-20">
+          <div className="workflow-text-inner flex w-full flex-col md:contents">
+            <div className="hidden md:block">
+              <WorkflowAnchor />
+              <div className="workflow-divider shrink-0" />
+            </div>
+
+            <div className="phrase-stack relative isolate min-h-0 overflow-hidden md:min-h-[420px] md:flex-1 lg:min-h-[460px]">
+              {WORKFLOW_SECTIONS.map((section, index) => (
+                <WorkflowStagePanel
+                  key={section.step}
+                  section={section}
+                  index={index}
+                  onPanelRef={(el) => {
+                    phrasePanelRefs.current[index] = el
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
