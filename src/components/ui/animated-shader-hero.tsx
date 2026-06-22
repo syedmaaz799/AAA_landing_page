@@ -48,18 +48,25 @@ float clouds(vec2 p) {
 }
 void main(void) {
   vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);
-  vec3 col=vec3(0);
+  vec3 col=vec3(0.008,0.016,0.04);
+  vec3 cyanBright=vec3(0.12,0.52,1.0);
+  vec3 cyanMid=vec3(0.06,0.32,0.82);
+  vec3 cyanDeep=vec3(0.02,0.12,0.35);
   float bg=clouds(vec2(st.x+T*.5,-st.y));
+  vec3 cloudColor=mix(cyanDeep,cyanMid,bg)+cyanBright*bg*0.14;
   uv*=1.-.3*(sin(T*.2)*.5+.5);
   for (float i=1.; i<9.; i++) {
     uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.5+.1*uv.x);
     vec2 p=uv;
     float d=length(p);
-    col+=.00125/d*(cos(sin(i)*vec3(1,2,3))+1.);
+    float pulse=0.5+0.5*cos(sin(i*1.4)+T*0.2);
+    col+=(.00135/d)*mix(cyanMid,cyanBright,pulse);
     float b=noise(i+p+bg*1.731);
-    col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
-    col=mix(col,vec3(bg*.25,bg*.137,bg*.05),d);
+    col+=.0022*b/length(max(p,vec2(b*p.x*.02,p.y)))*cyanMid;
+    col=mix(col,cloudColor,clamp(d*1.15,0.0,1.0));
   }
+  col=mix(vec3(0.008,0.016,0.04),col,0.92);
+  col+=cloudColor*0.08;
   O=vec4(col,1);
 }`
 
@@ -400,7 +407,7 @@ export function AnimatedShaderHero({
           "absolute inset-0 h-full w-full touch-none transform-gpu transition-opacity duration-700",
           mounted ? "opacity-100" : "opacity-0"
         )}
-        style={{ background: "#040200" }}
+        style={{ background: "#02040b" }}
       />
       <div className="hero-shader-overlay absolute inset-0" />
       <div className="hero-shader-vignette absolute inset-0" />

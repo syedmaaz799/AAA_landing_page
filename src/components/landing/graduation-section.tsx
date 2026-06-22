@@ -73,11 +73,11 @@ export function GraduationSection() {
         aria-hidden="true"
       />
       <div
-        className="graduation-hero-streak pointer-events-none absolute top-[22%] left-[12%] h-px w-1/4 -rotate-6 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"
+        className="graduation-hero-streak pointer-events-none absolute top-[22%] left-[12%] h-px w-1/4 -rotate-6 bg-gradient-to-r from-transparent via-sky-500/20 to-transparent"
         aria-hidden="true"
       />
       <div
-        className="graduation-hero-streak pointer-events-none absolute right-[10%] bottom-[28%] h-px w-1/5 rotate-12 bg-gradient-to-r from-transparent via-amber-400/15 to-transparent"
+        className="graduation-hero-streak pointer-events-none absolute right-[10%] bottom-[28%] h-px w-1/5 rotate-12 bg-gradient-to-r from-transparent via-cyan-400/15 to-transparent"
         aria-hidden="true"
       />
 
@@ -88,7 +88,7 @@ export function GraduationSection() {
         {GRADUATION_PARTICLES.map((particle, index) => (
           <span
             key={index}
-            className="hero-particle absolute size-1 rounded-full bg-orange-400/35"
+            className="hero-particle absolute size-1 rounded-full bg-sky-400/35"
             style={{
               left: particle.left,
               top: particle.top,
@@ -105,7 +105,7 @@ export function GraduationSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={cinematicReveal(0.1)}
-          className="graduation-badge mb-12 inline-flex items-center justify-center rounded-full border border-orange-500/[0.18] bg-orange-500/[0.08] px-7 py-3 text-xs font-semibold tracking-[0.22em] text-orange-300 uppercase backdrop-blur-[12px]"
+          className="graduation-badge mb-12 inline-flex items-center justify-center rounded-full border border-sky-500/[0.18] bg-sky-500/[0.08] px-7 py-3 text-xs font-semibold tracking-[0.22em] text-sky-300 uppercase backdrop-blur-[12px]"
         >
           By Graduation
         </motion.span>
@@ -171,7 +171,7 @@ export function GraduationSection() {
               }}
             >
               <GlassCard className="flex h-full items-center gap-3 text-left transition-transform duration-300 hover:-translate-y-1">
-                <GraduationCap className="size-5 shrink-0 text-orange-400" />
+                <GraduationCap className="size-5 shrink-0 text-sky-400" />
                 <span className="font-medium text-zinc-200">{item}</span>
               </GlassCard>
             </motion.div>

@@ -29,15 +29,15 @@ export function PricingSection() {
       className="relative scroll-mt-28 overflow-hidden px-6 py-[100px]"
     >
       <div className="pricing-hero-bg pointer-events-none absolute inset-0" aria-hidden="true" />
-      <div className="pricing-hero-orb pointer-events-none absolute top-1/2 left-1/2 size-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-500/10 blur-[120px]" aria-hidden="true" />
-      <div className="pricing-hero-streak pointer-events-none absolute top-[28%] left-1/4 h-px w-1/3 -rotate-6 bg-gradient-to-r from-transparent via-orange-500/25 to-transparent" aria-hidden="true" />
-      <div className="pricing-hero-streak pointer-events-none absolute bottom-[32%] right-1/4 h-px w-1/4 rotate-12 bg-gradient-to-r from-transparent via-amber-400/20 to-transparent" aria-hidden="true" />
+      <div className="pricing-hero-orb pointer-events-none absolute top-1/2 left-1/2 size-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-500/10 blur-[120px]" aria-hidden="true" />
+      <div className="pricing-hero-streak pointer-events-none absolute top-[28%] left-1/4 h-px w-1/3 -rotate-6 bg-gradient-to-r from-transparent via-sky-500/25 to-transparent" aria-hidden="true" />
+      <div className="pricing-hero-streak pointer-events-none absolute bottom-[32%] right-1/4 h-px w-1/4 rotate-12 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" aria-hidden="true" />
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         {PRICING_PARTICLES.map((p, i) => (
           <span
             key={i}
-            className="hero-particle absolute size-1 rounded-full bg-orange-400/40"
+            className="hero-particle absolute size-1 rounded-full bg-sky-400/40"
             style={{
               left: p.left,
               top: p.top,
@@ -54,7 +54,7 @@ export function PricingSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={reveal(0.1)}
-          className="mb-6 inline-flex items-center rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-orange-300 uppercase"
+          className="mb-6 inline-flex items-center rounded-full border border-sky-500/25 bg-sky-500/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-sky-300 uppercase"
         >
           Pricing
         </motion.span>
@@ -114,12 +114,12 @@ export function PricingSection() {
           <motion.div
             whileHover={{ y: -4, scale: 1.01 }}
             transition={{ duration: 0.3, ease: revealEase }}
-            className="pricing-card gradient-border relative overflow-hidden rounded-[32px] border border-orange-500/20 p-8 text-center shadow-[0_0_60px_-12px_rgba(255,140,0,0.35)] backdrop-blur-[20px] md:p-10"
+            className="pricing-card gradient-border relative overflow-hidden rounded-[32px] border border-sky-500/20 p-8 text-center shadow-[0_0_60px_-12px_rgba(63,169,255,0.35)] backdrop-blur-[20px] md:p-10"
           >
             <p className="text-lg text-zinc-500 line-through md:text-xl">₹49,999</p>
 
-            <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/10 px-6 py-5">
-              <p className="text-xs font-semibold tracking-[0.2em] text-amber-300 uppercase">
+            <div className="mt-6 rounded-2xl border border-cyan-500/25 bg-cyan-500/10 px-6 py-5">
+              <p className="text-xs font-semibold tracking-[0.2em] text-cyan-300 uppercase">
                 First 25 Seats
               </p>
               <p className="mt-2 text-5xl font-bold tracking-tight text-white md:text-6xl">

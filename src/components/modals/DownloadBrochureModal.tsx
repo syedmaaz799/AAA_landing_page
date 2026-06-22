@@ -143,8 +143,8 @@ export const DownloadBrochureModal = memo(function DownloadBrochureModal({
               disabled={isSubmitting}
               className={cn(
                 "inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full",
-                "bg-gradient-to-r from-orange-500 to-amber-400 px-6 text-sm font-semibold text-black",
-                "shadow-[0_0_30px_-5px_rgba(249,115,22,0.5)] transition-transform hover:scale-[1.01] disabled:opacity-60",
+                "bg-gradient-to-r from-sky-500 to-cyan-400 px-6 text-sm font-semibold text-black",
+                "shadow-[0_0_30px_-5px_rgba(63,169,255,0.5)] transition-transform hover:scale-[1.01] disabled:opacity-60",
               )}
             >
               {isSubmitting ? (
@@ -252,12 +252,12 @@ export const DownloadBrochureModal = memo(function DownloadBrochureModal({
             type="checkbox"
             checked={form.termsAccepted}
             onChange={(event) => updateField("termsAccepted", event.target.checked)}
-            className="mt-1 size-4 rounded border-white/20 bg-transparent text-orange-500 focus:ring-orange-500/30"
+            className="mt-1 size-4 rounded border-white/20 bg-transparent text-sky-500 focus:ring-sky-500/30"
           />
           <span className="text-sm leading-relaxed text-zinc-300">
             I agree to the Terms & Conditions and consent to being contacted about
             NeuralVarsity programs.
-            <span className="text-orange-400"> *</span>
+            <span className="text-sky-400"> *</span>
           </span>
         </label>
         {errors.termsAccepted ? (

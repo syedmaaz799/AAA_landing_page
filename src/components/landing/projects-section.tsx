@@ -76,14 +76,14 @@ const ProjectCard = memo(function ProjectCard({
           <div className="projects-showcase-icon">
             {project.icon === "rag" ? (
               <div className="relative flex items-center justify-center">
-                <Database className="size-[22px] text-orange-300" aria-hidden="true" />
+                <Database className="size-[22px] text-sky-300" aria-hidden="true" />
                 <Search
-                  className="absolute -right-0.5 -bottom-0.5 size-3 text-amber-200"
+                  className="absolute -right-0.5 -bottom-0.5 size-3 text-cyan-200"
                   aria-hidden="true"
                 />
               </div>
             ) : (
-              <Icon className="size-[22px] text-orange-300" aria-hidden="true" />
+              <Icon className="size-[22px] text-sky-300" aria-hidden="true" />
             )}
           </div>
         </header>
@@ -169,13 +169,13 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="projects-showcase-section relative w-full overflow-hidden border-t border-white/5 bg-[#040200] pt-[120px] pb-[120px]"
+      className="projects-showcase-section relative w-full overflow-hidden border-t border-white/5 bg-[#02040b] pt-[120px] pb-[120px]"
     >
       <div className="projects-showcase-ambient pointer-events-none absolute inset-0" />
       {PARTICLES.map((particle, index) => (
         <span
           key={index}
-          className="projects-showcase-star pointer-events-none absolute rounded-full bg-[rgba(255,180,0,0.45)]"
+          className="projects-showcase-star pointer-events-none absolute rounded-full bg-[rgba(124,200,255,0.45)]"
           style={{
             left: particle.left,
             top: particle.top,

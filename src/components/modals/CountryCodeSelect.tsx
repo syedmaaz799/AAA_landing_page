@@ -18,7 +18,7 @@ export const CountryCodeSelect = memo(function CountryCodeSelect({
   return (
     <div className="space-y-2">
       <label htmlFor="countryCode" className="block text-sm font-medium text-zinc-200">
-        Country Code<span className="text-orange-400"> *</span>
+        Country Code<span className="text-sky-400"> *</span>
       </label>
       <select
         id="countryCode"
@@ -29,7 +29,7 @@ export const CountryCodeSelect = memo(function CountryCodeSelect({
         className={cn(
           "min-h-12 w-full appearance-none rounded-xl border bg-white/[0.04] px-3 text-sm text-white",
           "transition-[border-color,box-shadow] duration-200",
-          "focus:border-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500/20",
+          "focus:border-sky-500/50 focus:outline-none focus:ring-2 focus:ring-sky-500/20",
           error ? "border-red-500/50" : "border-white/10",
         )}
       >

@@ -41,6 +41,8 @@ function LenisScrollTriggerBridge() {
   useEffect(() => {
     if (!lenis) return
 
+    ScrollTrigger.clearScrollMemory()
+
     lenis.on("scroll", ScrollTrigger.update)
 
     ScrollTrigger.scrollerProxy(document.documentElement, {
@@ -60,14 +62,51 @@ function LenisScrollTriggerBridge() {
       },
     })
 
+    const syncLayout = () => {
+      lenis.resize()
+      ScrollTrigger.refresh()
+    }
+
     const onRefresh = () => {
       lenis.resize()
     }
 
+    const onMobileViewportChange = () => {
+      syncLayout()
+    }
+
+    const onPageShow = (event: PageTransitionEvent) => {
+      ScrollTrigger.clearScrollMemory()
+      syncLayout()
+      if (event.persisted) {
+        requestAnimationFrame(syncLayout)
+        window.setTimeout(syncLayout, 200)
+      }
+    }
+
     ScrollTrigger.addEventListener("refresh", onRefresh)
-    ScrollTrigger.refresh()
+
+    syncLayout()
+    requestAnimationFrame(syncLayout)
+
+    const t1 = window.setTimeout(syncLayout, 150)
+    const t2 = window.setTimeout(syncLayout, 500)
+    const t3 = window.setTimeout(syncLayout, 1000)
+
+    window.addEventListener("load", syncLayout)
+    window.addEventListener("pageshow", onPageShow)
+    window.addEventListener("orientationchange", onMobileViewportChange)
+    window.visualViewport?.addEventListener("resize", onMobileViewportChange)
+    void document.fonts?.ready?.then(syncLayout)
 
     return () => {
+      window.clearTimeout(t1)
+      window.clearTimeout(t2)
+      window.clearTimeout(t3)
+      window.removeEventListener("load", syncLayout)
+      window.removeEventListener("pageshow", onPageShow)
+      window.removeEventListener("orientationchange", onMobileViewportChange)
+      window.visualViewport?.removeEventListener("resize", onMobileViewportChange)
       lenis.off("scroll", ScrollTrigger.update)
       ScrollTrigger.removeEventListener("refresh", onRefresh)
     }
@@ -95,6 +134,12 @@ function LenisFramerBridge() {
 }
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
+  useEffect(() => {
+    if (typeof history !== "undefined" && "scrollRestoration" in history) {
+      history.scrollRestoration = "manual"
+    }
+  }, [])
+
   return (
     <ReactLenis
       root

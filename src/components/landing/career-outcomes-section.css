@@ -1,17 +1,17 @@
 .career-outcomes-section {
-  background: #050505;
+  background: #02040b;
 }
 
 .career-outcomes-ambient {
   background:
     radial-gradient(
       ellipse 80% 50% at 50% 0%,
-      rgba(255, 122, 26, 0.08),
+      rgba(63, 169, 255, 0.08),
       transparent 70%
     ),
     radial-gradient(
       ellipse 60% 40% at 20% 80%,
-      rgba(255, 122, 26, 0.05),
+      rgba(124, 200, 255, 0.05),
       transparent 65%
     );
 }
@@ -20,8 +20,8 @@
   pointer-events: none;
   position: absolute;
   border-radius: 9999px;
-  background: rgba(255, 122, 26, 0.35);
-  box-shadow: 0 0 12px rgba(255, 122, 26, 0.25);
+  background: rgba(63, 169, 255, 0.35);
+  box-shadow: 0 0 12px rgba(63, 169, 255, 0.25);
   animation: career-outcomes-particle-float ease-in-out infinite;
 }
 
@@ -42,13 +42,13 @@
   height: 320px;
   flex-direction: column;
   border-radius: 32px;
-  border: 1px solid rgba(255, 122, 26, 0.15);
+  border: 1px solid rgba(63, 169, 255, 0.15);
   background: linear-gradient(
     180deg,
-    rgba(18, 18, 18, 0.95),
-    rgba(8, 8, 8, 0.98)
+    rgba(10, 18, 48, 0.95),
+    rgba(2, 4, 11, 0.98)
   );
-  box-shadow: 0 20px 60px rgba(255, 122, 26, 0.12);
+  box-shadow: 0 20px 60px rgba(63, 169, 255, 0.1);
   backdrop-filter: blur(12px);
   transition:
     transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -58,10 +58,10 @@
 
 .career-outcome-card:hover {
   transform: translateY(-10px) scale(1.03);
-  border-color: rgba(255, 122, 26, 0.4);
+  border-color: rgba(63, 169, 255, 0.4);
   box-shadow:
-    0 30px 80px rgba(255, 122, 26, 0.22),
-    0 0 40px rgba(255, 122, 26, 0.08);
+    0 30px 80px rgba(63, 169, 255, 0.2),
+    0 0 40px rgba(63, 169, 255, 0.08);
 }
 
 .career-outcome-icon {
@@ -72,9 +72,9 @@
   align-items: center;
   justify-content: center;
   border-radius: 1rem;
-  border: 1px solid rgba(255, 122, 26, 0.2);
-  background: rgba(255, 122, 26, 0.08);
-  box-shadow: 0 0 24px rgba(255, 122, 26, 0.12);
+  border: 1px solid rgba(63, 169, 255, 0.28);
+  background: rgba(63, 169, 255, 0.08);
+  box-shadow: 0 0 24px rgba(63, 169, 255, 0.12);
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -86,12 +86,12 @@
   display: inline-flex;
   align-items: center;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 122, 26, 0.15);
-  background: rgba(255, 122, 26, 0.06);
+  border: 1px solid rgba(63, 169, 255, 0.2);
+  background: rgba(63, 169, 255, 0.06);
   padding: 0.2rem 0.55rem;
   font-size: 0.65rem;
   font-weight: 500;
-  color: rgba(255, 200, 150, 0.9);
+  color: rgba(124, 200, 255, 0.92);
   white-space: nowrap;
 }
 

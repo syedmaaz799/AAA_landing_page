@@ -38,13 +38,13 @@ export function Navbar() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 transform-gpu",
           scrolled
-            ? "border-b border-white/10 bg-black/75 backdrop-blur-md"
+            ? "border-b border-white/10 bg-[#02040b]/80 backdrop-blur-md"
             : "bg-transparent"
         )}
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:h-20 md:px-8">
           <a href="#home" className="group flex flex-col">
-            <span className="bg-gradient-to-r from-orange-300 via-amber-300 to-orange-400 bg-clip-text text-lg font-bold tracking-tight text-transparent md:text-xl">
+            <span className="bg-gradient-to-r from-sky-300 via-cyan-300 to-sky-400 bg-clip-text text-lg font-bold tracking-tight text-transparent md:text-xl">
               NeuralVarsity
             </span>
             <span className="text-[10px] tracking-widest text-zinc-500 uppercase md:text-xs">
@@ -57,7 +57,7 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-zinc-400 transition-colors hover:text-orange-300"
+                className="text-sm text-zinc-400 transition-colors hover:text-sky-300"
               >
                 {link.label}
               </a>

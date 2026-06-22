@@ -15,7 +15,7 @@ export function Footer() {
     <footer className="border-t border-white/10 bg-black px-4 py-16 md:px-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 text-center md:flex-row md:justify-between md:text-left">
         <div>
-          <p className="bg-gradient-to-r from-orange-300 to-amber-300 bg-clip-text text-2xl font-bold text-transparent">
+          <p className="bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text text-2xl font-bold text-transparent">
             NeuralVarsity
           </p>
           <p className="mt-1 text-sm text-zinc-400">
@@ -26,7 +26,7 @@ export function Footer() {
           </p>
           <a
             href="https://neuralvarsity.ai"
-            className="mt-3 inline-block text-sm text-orange-400 hover:text-orange-300"
+            className="mt-3 inline-block text-sm text-sky-400 hover:text-sky-300"
           >
             neuralvarsity.ai
           </a>
@@ -38,7 +38,7 @@ export function Footer() {
               key={label}
               href={href}
               aria-label={label}
-              className="flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-400 transition-all hover:border-orange-500/40 hover:text-orange-300 hover:shadow-[0_0_20px_-4px_rgba(249,115,22,0.4)]"
+              className="flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-400 transition-all hover:border-sky-500/40 hover:text-sky-300 hover:shadow-[0_0_20px_-4px_rgba(63,169,255,0.4)]"
             >
               <Icon className="size-4" />
             </a>

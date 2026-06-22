@@ -31,7 +31,7 @@ export function HeroParticles() {
       {Array.from({ length: count }).map((_, i) => (
         <span
           key={i}
-          className="hero-particle absolute rounded-full bg-orange-400/50"
+          className="hero-particle absolute rounded-full bg-sky-400/50"
           style={{
             width: 2 + (i % 2),
             height: 2 + (i % 2),
@@ -43,8 +43,8 @@ export function HeroParticles() {
         />
       ))}
 
-      <div className="hero-light-streak absolute top-1/4 left-1/4 h-px w-1/3 rotate-12 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent" />
-      <div className="hero-light-streak absolute top-1/2 right-1/4 h-px w-1/4 -rotate-6 bg-gradient-to-r from-transparent via-amber-400/15 to-transparent" />
+      <div className="hero-light-streak absolute top-1/4 left-1/4 h-px w-1/3 rotate-12 bg-gradient-to-r from-transparent via-sky-500/20 to-transparent" />
+      <div className="hero-light-streak absolute top-1/2 right-1/4 h-px w-1/4 -rotate-6 bg-gradient-to-r from-transparent via-cyan-400/15 to-transparent" />
     </div>
   )
 }

@@ -107,7 +107,7 @@ function SectionHeader({ animated = true }: { animated?: boolean }) {
   if (!animated) {
     return (
       <header className="includes-section-header mx-auto w-full max-w-[850px] shrink-0 px-8 text-center">
-        <span className="mb-4 inline-flex items-center rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-orange-300 uppercase">
+        <span className="mb-4 inline-flex items-center rounded-full border border-sky-500/25 bg-sky-500/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-sky-300 uppercase">
           Program Includes
         </span>
         <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-[2.75rem] lg:leading-tight">
@@ -129,7 +129,7 @@ function SectionHeader({ animated = true }: { animated?: boolean }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: revealEase }}
-        className="mb-4 inline-flex items-center rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-orange-300 uppercase"
+        className="mb-4 inline-flex items-center rounded-full border border-sky-500/25 bg-sky-500/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-sky-300 uppercase"
       >
         Program Includes
       </motion.span>
@@ -169,7 +169,7 @@ function IncludeCard({
   return (
     <article
       className={cn(
-        "program-include-slide-card group relative flex shrink-0 flex-col overflow-hidden rounded-[32px] border border-orange-500/[0.18] p-8",
+        "program-include-slide-card group relative flex shrink-0 flex-col overflow-hidden rounded-[32px] border border-sky-500/[0.18] p-8",
         variant === "desktop" &&
           "includes-desktop-card h-[260px] w-[380px] min-w-[380px]",
         variant === "mobile" &&
@@ -186,7 +186,7 @@ function IncludeCard({
 
       <div className="relative mb-6 flex size-16 shrink-0 items-center justify-center">
         <div className="program-include-icon-wrap flex size-16 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[5deg]">
-          <Icon className="size-8 text-orange-300" strokeWidth={1.5} />
+          <Icon className="size-8 text-sky-300" strokeWidth={1.5} />
         </div>
       </div>
 

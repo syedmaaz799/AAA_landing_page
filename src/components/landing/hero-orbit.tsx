@@ -248,9 +248,9 @@ function PlanetSurface() {
       >
         <defs>
           <radialGradient id="jupyter-planet-base" cx="35%" cy="30%" r="65%">
-            <stop offset="0%" stopColor="rgba(255,210,100,0.35)" />
-            <stop offset="45%" stopColor="rgba(255,140,0,0.2)" />
-            <stop offset="100%" stopColor="rgba(40,15,0,0.85)" />
+            <stop offset="0%" stopColor="rgba(124,200,255,0.35)" />
+            <stop offset="45%" stopColor="rgba(63,169,255,0.2)" />
+            <stop offset="100%" stopColor="rgba(2,8,20,0.85)" />
           </radialGradient>
           <filter id="jupyter-planet-noise">
             <feTurbulence
@@ -268,9 +268,9 @@ function PlanetSurface() {
             />
           </filter>
           <linearGradient id="jupyter-energy-line" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(255,180,0,0)" />
-            <stop offset="50%" stopColor="rgba(255,180,0,0.35)" />
-            <stop offset="100%" stopColor="rgba(255,180,0,0)" />
+            <stop offset="0%" stopColor="rgba(124,200,255,0)" />
+            <stop offset="50%" stopColor="rgba(124,200,255,0.35)" />
+            <stop offset="100%" stopColor="rgba(124,200,255,0)" />
           </linearGradient>
         </defs>
         <circle cx="150" cy="150" r="148" fill="url(#jupyter-planet-base)" />
@@ -278,12 +278,12 @@ function PlanetSurface() {
           cx="150"
           cy="150"
           r="148"
-          fill="rgba(255,140,0,0.08)"
+          fill="rgba(63,169,255,0.08)"
           filter="url(#jupyter-planet-noise)"
         />
-        <ellipse cx="118" cy="112" rx="42" ry="28" fill="rgba(255,196,90,0.22)" />
-        <ellipse cx="188" cy="168" rx="36" ry="22" fill="rgba(255,160,40,0.18)" />
-        <ellipse cx="142" cy="198" rx="28" ry="18" fill="rgba(255,210,120,0.14)" />
+        <ellipse cx="118" cy="112" rx="42" ry="28" fill="rgba(63,169,255,0.18)" />
+        <ellipse cx="188" cy="168" rx="36" ry="22" fill="rgba(42,130,220,0.16)" />
+        <ellipse cx="142" cy="198" rx="28" ry="18" fill="rgba(124,200,255,0.12)" />
         <circle cx="96" cy="156" r="8" fill="rgba(20,8,0,0.45)" />
         <circle cx="204" cy="118" r="6" fill="rgba(20,8,0,0.4)" />
         <path
@@ -334,7 +334,7 @@ const JupyterPlanet = memo(function JupyterPlanet({
       <div className="jupyter-planet-atmosphere jupyter-planet-atmosphere-3" />
 
       <div
-        className="jupyter-planet relative overflow-hidden rounded-full border border-amber-400/15 backdrop-blur-[20px]"
+        className="jupyter-planet relative overflow-hidden rounded-full border border-cyan-400/15 backdrop-blur-[20px]"
         style={{ width: size, height: size }}
       >
         <div className="jupyter-planet-rotator absolute inset-0">
@@ -345,17 +345,17 @@ const JupyterPlanet = memo(function JupyterPlanet({
           <div className="jupyter-planet-core relative flex items-center justify-center">
             <Brain
               size={iconSize}
-              className="jupyter-planet-brain text-[#FFD56A]"
+              className="jupyter-planet-brain text-[#7CC8FF]"
               strokeWidth={1.25}
             />
             <Sparkles
               size={Math.round(iconSize * 0.26)}
-              className="absolute -top-1 -right-2 text-amber-300/80"
+              className="absolute -top-1 -right-2 text-cyan-300/80"
               strokeWidth={1.5}
             />
             <Network
               size={Math.round(iconSize * 0.26)}
-              className="absolute -bottom-1 -left-2 text-orange-300/70"
+              className="absolute -bottom-1 -left-2 text-sky-300/70"
               strokeWidth={1.5}
             />
           </div>
@@ -438,9 +438,9 @@ const OrbitMoon = memo(function OrbitMoon({
           </motion.div>
 
           <div className="jupyter-moon-tooltip pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 z-50 -translate-x-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <div className="rounded-xl border border-amber-400/25 bg-black/90 px-3 py-2 text-center shadow-[0_0_40px_rgba(255,140,0,0.3)] backdrop-blur-xl">
+            <div className="rounded-xl border border-cyan-400/25 bg-black/90 px-3 py-2 text-center shadow-[0_0_40px_rgba(63,169,255,0.3)] backdrop-blur-xl">
               <p className="text-xs font-semibold text-white">{displayName}</p>
-              <p className="text-[10px] text-orange-200/80">{category}</p>
+              <p className="text-[10px] text-sky-200/80">{category}</p>
             </div>
           </div>
         </motion.div>
@@ -569,12 +569,12 @@ const UniverseAmbience = memo(function UniverseAmbience({
       )}
       aria-hidden="true"
     >
-      <div className="jupyter-streak jupyter-streak-a hero-light-streak absolute top-[22%] left-[2%] h-px w-[48%] -rotate-6 bg-gradient-to-r from-transparent via-orange-500/25 to-transparent opacity-[0.15] blur-[30px]" />
-      <div className="jupyter-streak jupyter-streak-b hero-light-streak absolute right-[0%] bottom-[24%] h-px w-[44%] rotate-5 bg-gradient-to-r from-transparent via-amber-400/20 to-transparent opacity-[0.15] blur-[30px]" />
+      <div className="jupyter-streak jupyter-streak-a hero-light-streak absolute top-[22%] left-[2%] h-px w-[48%] -rotate-6 bg-gradient-to-r from-transparent via-sky-500/25 to-transparent opacity-[0.15] blur-[30px]" />
+      <div className="jupyter-streak jupyter-streak-b hero-light-streak absolute right-[0%] bottom-[24%] h-px w-[44%] rotate-5 bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent opacity-[0.15] blur-[30px]" />
       {particles.map((particle, index) => (
         <span
           key={index}
-          className="jupyter-particle absolute rounded-full bg-[rgba(255,180,0,0.35)]"
+          className="jupyter-particle absolute rounded-full bg-[rgba(124,200,255,0.35)]"
           style={{
             left: particle.left,
             top: particle.top,
@@ -681,10 +681,10 @@ function UniversePlaceholder({ planetSize }: { planetSize: number }) {
   return (
     <div className="relative hidden h-full w-full items-center justify-center bg-transparent lg:flex">
       <div
-        className="jupyter-planet flex items-center justify-center rounded-full border border-amber-400/15"
+        className="jupyter-planet flex items-center justify-center rounded-full border border-cyan-400/15"
         style={{ width: planetSize, height: planetSize }}
       >
-        <Brain size={70} className="text-[#FFD56A]" strokeWidth={1.25} />
+        <Brain size={70} className="text-[#7CC8FF]" strokeWidth={1.25} />
       </div>
     </div>
   )

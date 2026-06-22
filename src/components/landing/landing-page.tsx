@@ -22,18 +22,20 @@ import {
   FAQSection,
   FinalCTASection,
 } from "@/components/landing/sections"
+import { WorkflowExperience } from "@/components/landing/workflow-experience"
 
 export function LandingPage() {
   return (
     <ModalProvider>
       <LoadingScreen />
       <Navbar />
-      <main className="relative overflow-x-hidden bg-[#030303]">
+      <main className="relative overflow-x-hidden bg-[#02040b]">
         <Hero />
         <WhyProgramSection />
         <WhyChooseSection />
         <WhoShouldJoinSection />
         <ToolsSection />
+        <WorkflowExperience />
         <CurriculumSection />
         <GraduationSection />
         <CapabilitiesSection />

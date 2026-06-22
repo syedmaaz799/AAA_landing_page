@@ -117,7 +117,7 @@ export function GlassCard({
   return (
     <div
       className={cn(
-        "glass-card gradient-border rounded-2xl p-6 transition-[border-color,transform] duration-300 hover:border-orange-500/40",
+        "glass-card gradient-border rounded-2xl p-6 transition-[border-color,transform] duration-300 hover:border-sky-500/40",
         className
       )}
     >
@@ -128,7 +128,7 @@ export function GlassCard({
 
 export function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="mb-4 inline-flex items-center rounded-full border border-orange-500/20 bg-orange-500/10 px-4 py-1.5 text-xs font-medium tracking-wider text-orange-300 uppercase">
+    <span className="mb-4 inline-flex items-center rounded-full border border-sky-500/20 bg-sky-500/10 px-4 py-1.5 text-xs font-medium tracking-wider text-sky-300 uppercase">
       {children}
     </span>
   )
@@ -193,9 +193,9 @@ export function GlowButton({
 
   const variants = {
     primary:
-      "bg-gradient-to-r from-orange-500 to-amber-400 text-black shadow-[0_0_30px_-5px_rgba(249,115,22,0.5)] hover:scale-[1.02]",
+      "bg-gradient-to-r from-sky-500 to-cyan-400 text-black shadow-[0_0_30px_-5px_rgba(63,169,255,0.5)] hover:scale-[1.02]",
     secondary:
-      "border border-orange-500/30 bg-orange-500/10 text-orange-100 hover:border-orange-400/50 hover:bg-orange-500/20 hover:scale-[1.02]",
+      "border border-sky-500/30 bg-sky-500/10 text-sky-100 hover:border-sky-400/50 hover:bg-sky-500/20 hover:scale-[1.02]",
     ghost:
       "border border-white/10 bg-white/5 text-zinc-200 hover:border-white/20 hover:bg-white/10 hover:scale-[1.02]",
   }

@@ -2,13 +2,19 @@
 
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Brain } from "lucide-react"
 
 export function LoadingScreen() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1200)
+    const timer = setTimeout(() => {
+      setLoading(false)
+      requestAnimationFrame(() => {
+        ScrollTrigger.refresh()
+      })
+    }, 1200)
     return () => clearTimeout(timer)
   }, [])
 
@@ -25,15 +31,15 @@ export function LoadingScreen() {
             animate={{
               scale: [1, 1.1, 1],
               boxShadow: [
-                "0 0 40px rgba(249,115,22,0.2)",
-                "0 0 80px rgba(249,115,22,0.4)",
-                "0 0 40px rgba(249,115,22,0.2)",
+                "0 0 40px rgba(63,169,255,0.2)",
+                "0 0 80px rgba(63,169,255,0.4)",
+                "0 0 40px rgba(63,169,255,0.2)",
               ],
             }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="flex size-20 items-center justify-center rounded-full border border-orange-500/30 bg-orange-500/10"
+            className="flex size-20 items-center justify-center rounded-full border border-sky-500/30 bg-sky-500/10"
           >
-            <Brain className="size-10 text-orange-400" />
+            <Brain className="size-10 text-sky-400" />
           </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
@@ -50,7 +56,7 @@ export function LoadingScreen() {
               initial={{ x: "-100%" }}
               animate={{ x: "100%" }}
               transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-              className="h-full w-1/2 bg-gradient-to-r from-transparent via-orange-500 to-transparent"
+              className="h-full w-1/2 bg-gradient-to-r from-transparent via-sky-500 to-transparent"
             />
           </motion.div>
         </motion.div>
