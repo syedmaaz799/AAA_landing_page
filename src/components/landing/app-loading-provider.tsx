@@ -10,10 +10,11 @@ import {
 } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { bootApplication } from "@/lib/workflow-frame-cache"
 import { LoadingScreen } from "@/components/landing/loading-screen"
 
 gsap.registerPlugin(ScrollTrigger)
+
+const MIN_SPLASH_MS = 600
 
 type AppLoadingContextValue = {
   isReady: boolean
@@ -27,6 +28,42 @@ const AppLoadingContext = createContext<AppLoadingContextValue>({
 
 export function useAppLoading() {
   return useContext(AppLoadingContext)
+}
+
+async function bootApplication(onProgress: (progress: number) => void) {
+  const startedAt = performance.now()
+
+  onProgress(0.2)
+
+  const fontsReady = document.fonts?.ready ?? Promise.resolve()
+  const loadReady = new Promise<void>((resolve) => {
+    if (document.readyState === "complete") {
+      resolve()
+      return
+    }
+
+    window.addEventListener("load", () => resolve(), { once: true })
+  })
+
+  const logoReady = new Promise<void>((resolve) => {
+    const img = new Image()
+    img.onload = () => resolve()
+    img.onerror = () => resolve()
+    img.src = "/brand/nv-logo-updated.png"
+  })
+
+  onProgress(0.55)
+  await Promise.all([loadReady, fontsReady, logoReady])
+  onProgress(0.9)
+
+  const elapsed = performance.now() - startedAt
+  if (elapsed < MIN_SPLASH_MS) {
+    await new Promise((resolve) =>
+      window.setTimeout(resolve, MIN_SPLASH_MS - elapsed),
+    )
+  }
+
+  onProgress(1)
 }
 
 export function AppLoadingProvider({ children }: { children: ReactNode }) {

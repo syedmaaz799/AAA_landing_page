@@ -22,7 +22,6 @@ import {
   FAQSection,
   FinalCTASection,
 } from "@/components/landing/sections"
-import { WorkflowExperience } from "@/components/landing/workflow-experience"
 
 export function LandingPage() {
   return (
@@ -35,7 +34,6 @@ export function LandingPage() {
           <WhyChooseSection />
           <WhoShouldJoinSection />
           <ToolsSection />
-          <WorkflowExperience />
           <CurriculumSection />
           <GraduationSection />
           <CapabilitiesSection />
