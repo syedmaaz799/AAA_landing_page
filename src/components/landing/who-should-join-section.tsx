@@ -218,7 +218,7 @@ export function WhoShouldJoinSection() {
           <SectionLabel>Who Should Join</SectionLabel>
           <h2 className="text-3xl font-black tracking-tight text-white md:text-4xl lg:text-5xl">
             BUILD WITH AI.
-            <span className="mt-2 block bg-gradient-to-r from-cyan-200 via-sky-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="mt-2 block bg-gradient-to-r from-yellow-300 via-orange-400 to-amber-500 bg-clip-text text-transparent">
               NO MATTER WHERE YOU START.
             </span>
           </h2>

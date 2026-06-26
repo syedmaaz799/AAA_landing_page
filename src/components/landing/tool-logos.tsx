@@ -106,7 +106,7 @@ export const TOOL_ICON_MAP: Record<string, ToolIconConfig> = {
     type: "custom",
     color: "#3B82F6",
     render: () => (
-      <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-cyan-400 text-[10px] font-bold text-white">
+      <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-amber-400 text-[10px] font-bold text-white">
         F
       </span>
     ),
@@ -132,7 +132,7 @@ export const TOOL_ICON_MAP: Record<string, ToolIconConfig> = {
   "BuildMyAgent.io": {
     type: "lucide",
     icon: Sparkles,
-    color: "#3FA9FF",
+    color: "#FF8C00",
   },
   Emergent: {
     type: "lucide",
@@ -187,7 +187,7 @@ export const TOOL_ICON_MAP: Record<string, ToolIconConfig> = {
   "REST APIs": {
     type: "lucide",
     icon: Braces,
-    color: "#3FA9FF",
+    color: "#FF8C00",
   },
   Webhooks: {
     type: "lucide",
@@ -215,7 +215,7 @@ export function ToolLogo({
   if (!config) {
     return (
       <Cpu
-        className={cn("size-6 shrink-0 text-sky-400", className)}
+        className={cn("size-6 shrink-0 text-orange-400", className)}
         aria-hidden="true"
       />
     )
@@ -223,7 +223,7 @@ export function ToolLogo({
 
   const wrapperClass = cn(
     "flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/5 transition-all duration-300",
-    glowing && "shadow-[0_0_20px_-2px_rgba(63,169,255,0.5)]",
+    glowing && "shadow-[0_0_20px_-2px_rgba(255,140,0,0.5)]",
     className
   )
 
@@ -249,9 +249,9 @@ export function ToolLogo({
 
 export function ToolMarqueeCard({ name }: { name: string }) {
   return (
-    <div className="tool-marquee-card group flex h-20 shrink-0 items-center gap-3 rounded-[20px] border border-white/[0.08] bg-white/[0.04] px-5 backdrop-blur-[16px] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 hover:border-sky-500/40 hover:shadow-[0_0_32px_-4px_rgba(63,169,255,0.45)]">
+    <div className="tool-marquee-card group flex h-20 shrink-0 items-center gap-3 rounded-[20px] border border-white/[0.08] bg-white/[0.04] px-5 backdrop-blur-[16px] transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 hover:border-orange-500/40 hover:shadow-[0_0_32px_-4px_rgba(255,140,0,0.45)]">
       <ToolLogo name={name} glowing className="group-hover:scale-110" />
-      <span className="text-sm font-medium whitespace-nowrap text-zinc-300 transition-colors group-hover:text-sky-100">
+      <span className="text-sm font-medium whitespace-nowrap text-zinc-300 transition-colors group-hover:text-orange-100">
         {name}
       </span>
     </div>

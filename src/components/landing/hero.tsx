@@ -46,13 +46,13 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-x-hidden bg-[#02040b] pt-20 md:pt-24"
+      className="relative min-h-screen overflow-x-hidden bg-[#030303] pt-20 md:pt-24"
     >
       {/* Layer 1: Animated Shader Background */}
       <AnimatedShaderHero className="z-0" intensity={intensity} />
 
-      {/* Layer 2: Cyan gradient overlay (also in CSS on shader component) */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(180deg,#02040b_0%,#061018_25%,#0a1230_50%,#02040b_100%)] opacity-60 mix-blend-multiply" />
+      {/* Layer 2: Warm gradient overlay (also in CSS on shader component) */}
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(180deg,#120600_0%,#1a0900_35%,#0d0500_70%,#040200_100%)] opacity-45 mix-blend-multiply" />
 
       {/* Layer 3: Floating particles + light streaks */}
       <div className="absolute inset-0 z-[2]">
@@ -66,22 +66,22 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="mb-6 inline-flex w-fit flex-col gap-1 rounded-full border border-sky-500/25 bg-sky-500/10 px-4 py-2 sm:flex-row sm:items-center sm:gap-3 sm:px-5"
+            className="mb-6 inline-flex w-fit flex-col gap-1 rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-2 sm:flex-row sm:items-center sm:gap-3 sm:px-5"
           >
-            <span className="flex items-center gap-2 text-sm font-medium text-sky-200">
-              <Rocket className="size-4 text-sky-400" />
+            <span className="flex items-center gap-2 text-sm font-medium text-orange-200">
+              <Rocket className="size-4 text-orange-400" />
               Cohort 1 Applications Now Open
             </span>
-            <span className="hidden h-4 w-px bg-sky-500/30 sm:block" />
-            <span className="flex items-center gap-1.5 text-xs text-sky-100/80 sm:text-sm">
-              <Sparkles className="size-3.5 text-cyan-300" />
+            <span className="hidden h-4 w-px bg-orange-500/30 sm:block" />
+            <span className="flex items-center gap-1.5 text-xs text-orange-100/80 sm:text-sm">
+              <Sparkles className="size-3.5 text-amber-300" />
               Trusted by Students, Professionals, Founders & Future AI Builders
             </span>
           </motion.div>
 
           <div className="relative">
-            <div className="pointer-events-none absolute -inset-8 bg-[radial-gradient(ellipse_at_left,rgba(63,169,255,0.12),transparent_60%)]" />
-            <div className="pointer-events-none absolute top-1/2 -left-4 h-24 w-24 -translate-y-1/2 rounded-full bg-sky-500/10 blur-3xl" />
+            <div className="pointer-events-none absolute -inset-8 bg-[radial-gradient(ellipse_at_left,rgba(255,140,0,0.12),transparent_60%)]" />
+            <div className="pointer-events-none absolute top-1/2 -left-4 h-24 w-24 -translate-y-1/2 rounded-full bg-orange-500/10 blur-3xl" />
 
             <div className="relative space-y-1 md:space-y-2">
               <motion.h1
@@ -118,7 +118,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
-            className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 md:text-lg"
+            className="mt-6 max-w-xl text-base leading-relaxed text-zinc-300 md:text-lg"
           >
             Learn how to build AI Agents, Autonomous Workflows, Multi-Agent
             Systems, and AI Business Automations that companies are actively

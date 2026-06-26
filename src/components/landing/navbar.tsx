@@ -39,7 +39,7 @@ export function Navbar() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 transform-gpu",
           scrolled
-            ? "border-b border-white/10 bg-[#02040b]/80 backdrop-blur-md"
+            ? "border-b border-white/10 bg-[#030303]/80 backdrop-blur-md"
             : "bg-transparent"
         )}
       >
@@ -68,7 +68,7 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-zinc-400 transition-colors hover:text-sky-300"
+                className="text-sm text-zinc-400 transition-colors hover:text-orange-300"
               >
                 {link.label}
               </a>

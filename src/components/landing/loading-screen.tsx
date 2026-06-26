@@ -17,7 +17,7 @@ export function LoadingScreen({ visible, progress }: LoadingScreenProps) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#02040b]"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#030303]"
           aria-live="polite"
           aria-busy="true"
           aria-label="Loading NeuralVarsity"
@@ -26,9 +26,9 @@ export function LoadingScreen({ visible, progress }: LoadingScreenProps) {
             animate={{
               scale: [1, 1.04, 1],
               filter: [
-                "drop-shadow(0 0 24px rgba(63,169,255,0.18))",
-                "drop-shadow(0 0 42px rgba(63,169,255,0.34))",
-                "drop-shadow(0 0 24px rgba(63,169,255,0.18))",
+                "drop-shadow(0 0 24px rgba(255,140,0,0.18))",
+                "drop-shadow(0 0 42px rgba(255,140,0,0.34))",
+                "drop-shadow(0 0 24px rgba(255,140,0,0.18))",
               ],
             }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
@@ -61,7 +61,7 @@ export function LoadingScreen({ visible, progress }: LoadingScreenProps) {
 
           <div className="mt-5 h-1 w-56 overflow-hidden rounded-full bg-white/10">
             <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-[#3FA9FF] to-[#7CC8FF]"
+              className="h-full rounded-full bg-gradient-to-r from-[#FF8C00] to-[#F97316]"
               initial={false}
               animate={{ width: `${percent}%` }}
               transition={{ duration: 0.25, ease: "easeOut" }}

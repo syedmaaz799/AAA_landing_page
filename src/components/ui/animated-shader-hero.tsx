@@ -48,34 +48,22 @@ float clouds(vec2 p) {
 }
 void main(void) {
   vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);
-  vec3 col=vec3(0.008,0.016,0.04);
-  vec3 cyanBright=vec3(0.13,0.54,1.0);
-  vec3 cyanMid=vec3(0.06,0.33,0.84);
-  vec3 cyanDeep=vec3(0.02,0.12,0.35);
+  vec3 col=vec3(0.02,0.008,0.002);
   float bg=clouds(vec2(st.x+T*.5,-st.y));
-  vec3 cloudColor=mix(cyanDeep,cyanMid,bg)+cyanBright*bg*0.14;
+  vec3 cloudWarm=vec3(bg*0.48,bg*0.2,bg*0.04);
   uv*=1.-.3*(sin(T*.2)*.5+.5);
   for (float i=1.; i<9.; i++) {
     uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.5+.1*uv.x);
     vec2 p=uv;
     float d=length(p);
-    float pulse=0.5+0.5*cos(sin(i*1.4)+T*0.2);
-    vec3 starColor=mix(cyanMid,cyanBright,pulse);
-    vec3 trailBright=mix(starColor,vec3(0.78,0.94,1.0),0.28);
-
-    col+=(.0023/d)*starColor;
-    col+=exp(-d*12.0)*0.0007*trailBright;
-
-    vec2 tail=p*vec2(0.17,2.5);
-    float ionTrail=exp(-length(tail)*1.85)/(abs(p.y)*2.1+0.024);
-    col+=ionTrail*0.0042*trailBright;
-
+    vec3 glow=vec3(1.0,0.45,0.06)*(cos(sin(i)*1.0)+1.0);
+    col+=.0024/d*glow;
     float b=noise(i+p+bg*1.731);
-    col+=.0027*b/length(max(p,vec2(b*p.x*.026,p.y*0.55)))*cyanMid;
-    col=mix(col,cloudColor,clamp(d*1.15,0.0,1.0));
+    col+=.0032*b/length(max(p,vec2(b*p.x*.02,p.y)))*vec3(1.0,0.42,0.06);
+    col=mix(col,cloudWarm,clamp(d*0.9,0.0,1.0));
   }
-  col=mix(vec3(0.008,0.016,0.04),col,0.91);
-  col+=cloudColor*0.08;
+  col+=cloudWarm*0.14;
+  col=mix(vec3(0.02,0.008,0.002),col,0.96);
   O=vec4(col,1);
 }`
 
@@ -416,7 +404,7 @@ export function AnimatedShaderHero({
           "absolute inset-0 h-full w-full touch-none transform-gpu transition-opacity duration-700",
           mounted ? "opacity-100" : "opacity-0"
         )}
-        style={{ background: "#02040b" }}
+        style={{ background: "#030303" }}
       />
       <div className="hero-shader-overlay absolute inset-0" />
       <div className="hero-shader-vignette absolute inset-0" />

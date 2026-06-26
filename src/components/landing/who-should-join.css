@@ -16,7 +16,7 @@
   inset: 0;
   background: radial-gradient(
     circle at center,
-    rgba(63, 169, 255, 0.12),
+    rgba(255, 140, 0, 0.12),
     transparent 70%
   );
 }
@@ -32,7 +32,7 @@
   border-radius: 9999px;
   background: radial-gradient(
     circle,
-    rgba(63, 169, 255, 0.06),
+    rgba(255, 140, 0, 0.06),
     transparent 65%
   );
 }
@@ -48,7 +48,7 @@
   background: linear-gradient(
     to right,
     transparent,
-    rgba(63, 169, 255, 0.2),
+    rgba(255, 140, 0, 0.2),
     transparent
   );
   animation: who-join-streak-pulse 6s ease-in-out infinite;
@@ -68,7 +68,7 @@
   pointer-events: none;
   position: absolute;
   border-radius: 9999px;
-  background: rgba(124, 200, 255, 0.4);
+  background: rgba(249, 115, 22, 0.4);
   opacity: 0.35;
   animation: who-join-particle-pulse 4s ease-in-out infinite;
 }
@@ -134,12 +134,12 @@
 
 .who-join-fade-left {
   left: 0;
-  background: linear-gradient(to right, #02040b 12%, transparent);
+  background: linear-gradient(to right, #030303 12%, transparent);
 }
 
 .who-join-fade-right {
   right: 0;
-  background: linear-gradient(to left, #02040b 12%, transparent);
+  background: linear-gradient(to left, #030303 12%, transparent);
 }
 
 .who-join-track {
@@ -293,10 +293,10 @@
   padding: 22px;
   background: linear-gradient(
     180deg,
-    rgba(15, 15, 15, 0.96),
-    rgba(8, 8, 8, 0.96)
+    rgba(255, 140, 0, 0.12),
+    rgba(18, 6, 0, 0.96)
   );
-  border: 1px solid rgba(124, 200, 255, 0.15);
+  border: 1px solid rgba(255, 140, 0, 0.22);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
@@ -327,7 +327,7 @@
   height: 240px;
   background: radial-gradient(
     circle,
-    rgba(63, 169, 255, 0.12),
+    rgba(255, 140, 0, 0.12),
     transparent 70%
   );
   pointer-events: none;
@@ -335,8 +335,8 @@
 
 .who-join-card:hover .who-join-card-surface {
   transform: translate3d(0, -8px, 0) scale(1.02);
-  border-color: rgba(124, 200, 255, 0.3);
-  box-shadow: 0 0 60px rgba(63, 169, 255, 0.2);
+  border-color: rgba(249, 115, 22, 0.3);
+  box-shadow: 0 0 60px rgba(255, 140, 0, 0.2);
 }
 
 .who-join-card-icon {
@@ -351,8 +351,8 @@
   justify-content: center;
   margin-bottom: 14px;
   border-radius: 16px;
-  background: rgba(63, 169, 255, 0.08);
-  border: 1px solid rgba(63, 169, 255, 0.15);
+  background: rgba(255, 140, 0, 0.08);
+  border: 1px solid rgba(255, 140, 0, 0.15);
 }
 
 @media (min-width: 768px) {
@@ -378,7 +378,7 @@
 .who-join-card-icon svg {
   width: 24px;
   height: 24px;
-  color: #7CC8FF;
+  color: #F97316;
 }
 
 @media (min-width: 1024px) {

@@ -48,14 +48,14 @@ const CareerCarouselCard = memo(function CareerCarouselCard({
   return (
     <div className="career-outcome-card career-carousel-card h-full p-5 md:p-6">
       <div className="career-outcome-icon mb-4 shrink-0">
-        <Icon className="size-6 text-[#3FA9FF]" aria-hidden="true" />
+        <Icon className="size-6 text-[#FF8C00]" aria-hidden="true" />
       </div>
 
       <h3 className="text-base font-bold leading-snug text-white md:text-[1.05rem]">
         {career.title}
       </h3>
 
-      <p className="mt-2 text-sm font-semibold text-[#3FA9FF]">
+      <p className="mt-2 text-sm font-semibold text-[#FF8C00]">
         {career.salary}
       </p>
 

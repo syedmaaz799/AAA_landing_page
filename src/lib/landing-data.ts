@@ -424,36 +424,36 @@ export const PROGRAM_INCLUDES = [
 
 export const FAQS = [
   {
-    q: "Who can join this program?",
-    a: "Students, professionals, founders, freelancers, and career switchers — anyone ready to build with AI. No prior AI experience required.",
+    q: "Who is this program designed for?",
+    a: "This program is open to students, working professionals, founders, freelancers, and career switchers who want to build practical expertise in AI agents and automation. No prior experience in artificial intelligence is required.",
   },
   {
-    q: "Do I need coding knowledge?",
-    a: "No. We teach no-code and low-code approaches alongside practical implementation so you can build production systems without heavy engineering.",
+    q: "Is prior programming experience required?",
+    a: "No. The curriculum combines no-code and low-code methodologies with guided implementation, enabling you to design and deploy production-ready AI systems without extensive software engineering background.",
   },
   {
-    q: "Will I build real projects?",
-    a: "Yes. You'll build 10+ hands-on projects including AI agents, automation workflows, and a capstone AI Employee you can showcase to employers and clients.",
+    q: "Does the curriculum include hands-on project work?",
+    a: "Yes. You will complete 10+ applied projects, including AI agents, end-to-end automation workflows, and a capstone AI Employee — all structured to strengthen your portfolio for employers and clients.",
   },
   {
-    q: "Will I get recordings?",
-    a: "Every live session is recorded so you can revisit lessons anytime.",
+    q: "Are session recordings provided?",
+    a: "Yes. Recordings of every live instructor-led session are made available, allowing you to review material at your own pace and revisit key concepts as needed.",
   },
   {
-    q: "Will I receive certification?",
-    a: "Yes. Graduates receive the NeuralVarsity AI Agents & Automation Master Program Professional Certificate.",
+    q: "What certification do graduates receive?",
+    a: "Upon successful completion, you will receive the NeuralVarsity AI Agents & Automation Master Program Professional Certificate, validating your skills in agentic AI and business automation.",
   },
   {
-    q: "Can I freelance after completing this program?",
-    a: "Absolutely. You'll learn monetization strategies, portfolio building, and how to deliver client-ready AI automation projects worth ₹15K–₹75K+.",
+    q: "Does this program prepare me for freelance or client work?",
+    a: "Yes. The program covers portfolio development, client delivery frameworks, and monetization strategies, with project scopes aligned to typical freelance automation engagements in the ₹15K–₹75K range and above.",
   },
   {
-    q: "Will I build AI Agents and Automations from scratch?",
-    a: "Yes — from prompt engineering to multi-agent systems, RAG assistants, n8n workflows, and deployed production applications.",
+    q: "Will I learn to build AI agents and automations end to end?",
+    a: "Yes. You will progress from prompt engineering and system design through multi-agent architectures, RAG-based assistants, n8n workflows, and deployed production applications — built from the ground up.",
   },
   {
-    q: "Can working professionals attend?",
-    a: "Yes. The program is designed for busy professionals with live sessions, recordings, and a focused 4-week structure.",
+    q: "Is the schedule suitable for working professionals?",
+    a: "Yes. The program is structured as a focused four-week cohort with live sessions, on-demand recordings, and a pace designed to accommodate professionals balancing work and learning commitments.",
   },
 ] as const
 

@@ -8,8 +8,8 @@
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: screen;
-  background: linear-gradient(135deg, #3FA9FF, #7CC8FF);
-  box-shadow: 0 0 20px rgba(63, 169, 255, 0.6);
+  background: linear-gradient(135deg, #FF8C00, #F97316);
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
   will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;

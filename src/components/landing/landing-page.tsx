@@ -5,6 +5,7 @@ import { AppLoadingProvider } from "@/components/landing/app-loading-provider"
 import { Navbar } from "@/components/landing/navbar"
 import { Hero } from "@/components/landing/hero"
 import { Footer } from "@/components/landing/footer"
+import { WhatsAppFloatButton } from "@/components/landing/whatsapp-float-button"
 import {
   WhyProgramSection,
   WhyChooseSection,
@@ -28,7 +29,7 @@ export function LandingPage() {
     <AppLoadingProvider>
       <ModalProvider>
         <Navbar />
-        <main className="relative overflow-x-hidden bg-[#02040b]">
+        <main className="relative overflow-x-hidden bg-[#030303]">
           <Hero />
           <WhyProgramSection />
           <WhyChooseSection />
@@ -47,6 +48,7 @@ export function LandingPage() {
           <FinalCTASection />
         </main>
         <Footer />
+        <WhatsAppFloatButton />
       </ModalProvider>
     </AppLoadingProvider>
   )

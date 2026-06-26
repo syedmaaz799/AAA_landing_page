@@ -32,7 +32,7 @@ export const ModalFormLayout = memo(function ModalFormLayout({
 }: ModalFormLayoutProps) {
   return (
     <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden lg:grid lg:grid-cols-[340px_minmax(0,1fr)]">
-      <ModalSidebar className="hidden shrink-0 rounded-none border-0 lg:flex lg:h-full lg:min-h-0 lg:border-r lg:border-sky-500/10" />
+      <ModalSidebar className="hidden shrink-0 rounded-none border-0 lg:flex lg:h-full lg:min-h-0 lg:border-r lg:border-orange-500/10" />
 
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <div className="shrink-0 border-b border-white/10 p-6 md:p-8">

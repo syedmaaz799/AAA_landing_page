@@ -80,7 +80,7 @@ const WHY_CHOOSE = [
 
 export function WhyProgramSection() {
   return (
-    <Section id="why" className="border-t border-white/5">
+    <Section id="why" className="border-t border-orange-500/10">
       <div className="mx-auto max-w-7xl">
         <FadeUp>
           <SectionLabel>Why This Program Exists</SectionLabel>
@@ -98,8 +98,8 @@ export function WhyProgramSection() {
         <StaggerGrid className="mt-8 flex flex-wrap gap-3">
           {AGENT_CAPABILITIES.map((cap) => (
             <StaggerItem key={cap}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/5 px-4 py-2 text-sm text-sky-200">
-                <Zap className="size-3.5 text-sky-400" />
+              <span className="inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/5 px-4 py-2 text-sm text-orange-200">
+                <Zap className="size-3.5 text-orange-400" />
                 {cap}
               </span>
             </StaggerItem>
@@ -118,7 +118,7 @@ export function WhyProgramSection() {
           {WHY_CARDS.map(({ icon: Icon, title }) => (
             <StaggerItem key={title}>
               <GlassCard className="h-full">
-                <Icon className="mb-4 size-8 text-sky-400" />
+                <Icon className="mb-4 size-8 text-orange-400" />
                 <p className="text-lg font-medium text-zinc-200">{title}</p>
               </GlassCard>
             </StaggerItem>
@@ -141,8 +141,8 @@ export function WhyChooseSection() {
           {WHY_CHOOSE.map(({ icon: Icon, title, desc }) => (
             <StaggerItem key={title}>
               <GlassCard className="h-full">
-                <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-sky-500/10">
-                  <Icon className="size-6 text-sky-400" />
+                <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-orange-500/10">
+                  <Icon className="size-6 text-orange-400" />
                 </div>
                 <h3 className="text-lg font-semibold text-white">{title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-400">
@@ -161,7 +161,7 @@ export { WhoShouldJoinSection } from "@/components/landing/who-should-join-secti
 
 export function ToolsSection() {
   return (
-    <Section className="overflow-hidden border-y border-white/5 bg-white/[0.02]">
+    <Section className="overflow-hidden border-y border-orange-500/10 bg-orange-500/[0.03]">
       <div className="mx-auto max-w-7xl">
         <FadeUp className="px-4 md:px-8">
           <div id="tools" className="scroll-mt-28">
@@ -182,7 +182,7 @@ export function ToolsSection() {
         <StaggerGrid className="mt-12 flex flex-wrap justify-center gap-x-5 gap-y-4 px-4 md:gap-x-6 md:gap-y-5">
           {TOOL_BADGES.map((badge) => (
             <StaggerItem key={badge} className="shrink-0">
-              <span className="inline-flex whitespace-nowrap rounded-full border border-white/10 bg-gradient-to-r from-sky-500/10 to-cyan-500/5 px-4 py-2 text-xs font-medium text-zinc-300 md:text-sm">
+              <span className="inline-flex whitespace-nowrap rounded-full border border-white/10 bg-gradient-to-r from-orange-500/10 to-amber-500/5 px-4 py-2 text-xs font-medium text-zinc-300 md:text-sm">
                 {badge}
               </span>
             </StaggerItem>
@@ -209,7 +209,7 @@ export function CurriculumSection() {
         </FadeUp>
 
         <div className="relative mt-16">
-          <div className="absolute top-0 left-4 h-full w-px bg-gradient-to-b from-sky-500/50 via-sky-500/20 to-transparent md:left-1/2 md:-translate-x-px" />
+          <div className="absolute top-0 left-4 h-full w-px bg-gradient-to-b from-orange-500/50 via-orange-500/20 to-transparent md:left-1/2 md:-translate-x-px" />
 
           {CURRICULUM.map((week, index) => (
             <FadeUp key={week.week} delay={index * 0.1}>
@@ -219,14 +219,14 @@ export function CurriculumSection() {
                 }`}
               >
                 <div className="hidden flex-1 md:block" />
-                <div className="absolute left-4 z-10 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-sky-500/50 bg-black md:left-1/2">
-                  <span className="text-xs font-bold text-sky-400">
+                <div className="absolute left-4 z-10 flex size-8 -translate-x-1/2 items-center justify-center rounded-full border border-orange-500/50 bg-black md:left-1/2">
+                  <span className="text-xs font-bold text-orange-400">
                     {index + 1}
                   </span>
                 </div>
                 <div className="flex-1 pl-12 md:pl-0">
                   <GlassCard>
-                    <div className="mb-2 text-sm font-semibold tracking-wider text-sky-400 uppercase">
+                    <div className="mb-2 text-sm font-semibold tracking-wider text-orange-400 uppercase">
                       {week.week}
                     </div>
                     <h3 className="text-xl font-bold text-white md:text-2xl">
@@ -238,13 +238,13 @@ export function CurriculumSection() {
                           key={topic}
                           className="flex items-start gap-2 text-sm text-zinc-400"
                         >
-                          <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-sky-500/70" />
+                          <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-orange-500/70" />
                           {topic}
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-6 rounded-xl border border-sky-500/20 bg-sky-500/5 p-4">
-                      <span className="text-xs font-semibold tracking-wider text-sky-400 uppercase">
+                    <div className="mt-6 rounded-xl border border-orange-500/20 bg-orange-500/5 p-4">
+                      <span className="text-xs font-semibold tracking-wider text-orange-400 uppercase">
                         Week Outcome
                       </span>
                       <p className="mt-1 text-sm text-zinc-300">{week.outcome}</p>
@@ -292,7 +292,7 @@ export function MarketSection() {
     {
       key: "growth",
       stat: (
-        <div className="text-4xl font-bold text-sky-400 md:text-5xl">
+        <div className="text-4xl font-bold text-orange-400 md:text-5xl">
           <CountUp end={40} suffix="+" />%
         </div>
       ),
@@ -301,7 +301,7 @@ export function MarketSection() {
     {
       key: "freelance",
       stat: (
-        <div className="text-3xl font-bold text-cyan-300 md:text-4xl lg:text-5xl">
+        <div className="text-3xl font-bold text-amber-300 md:text-4xl lg:text-5xl">
           ₹15K–₹75K
         </div>
       ),
@@ -311,7 +311,7 @@ export function MarketSection() {
       key: "roi",
       stat: (
         <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold text-sky-400 md:text-5xl">1</div>
+          <div className="text-4xl font-bold text-orange-400 md:text-5xl">1</div>
           <p className="mt-1 text-lg font-medium text-zinc-200">Project</p>
         </div>
       ),
@@ -320,7 +320,7 @@ export function MarketSection() {
   ] as const
 
   return (
-    <Section className="bg-gradient-to-b from-sky-500/5 to-transparent">
+    <Section className="bg-gradient-to-b from-orange-500/5 to-transparent">
       <div className="mx-auto max-w-7xl">
         <FadeUp>
           <SectionLabel>Market Opportunity</SectionLabel>
@@ -356,8 +356,8 @@ export function DifferentiatorsSection() {
         <StaggerGrid className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {PROGRAM_DIFFERENTIATORS.map((item) => (
             <StaggerItem key={item}>
-              <div className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3">
-                <CheckCircle2 className="size-4 shrink-0 text-sky-400" />
+              <div className="flex items-center gap-3 rounded-xl border border-orange-500/15 bg-orange-500/[0.05] px-4 py-3">
+                <CheckCircle2 className="size-4 shrink-0 text-orange-400" />
                 <span className="text-sm text-zinc-300">{item}</span>
               </div>
             </StaggerItem>
@@ -376,7 +376,7 @@ export function FAQSection() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <Section className="border-t border-white/5 bg-white/[0.02]">
+    <Section className="border-t border-orange-500/10 bg-orange-500/[0.03]">
       <div className="mx-auto max-w-3xl">
         <FadeUp className="text-center">
           <div id="faq" className="scroll-mt-28">
@@ -396,7 +396,7 @@ export function FAQSection() {
                 >
                   <span className="pr-4 font-medium text-zinc-200">{faq.q}</span>
                   <ChevronDown
-                    className={`size-5 shrink-0 text-sky-400 transition-transform ${
+                    className={`size-5 shrink-0 text-orange-400 transition-transform ${
                       open === i ? "rotate-180" : ""
                     }`}
                   />
@@ -436,7 +436,7 @@ export function FinalCTASection() {
             <br />
             BUILD AI SYSTEMS.
             <br />
-            <span className="bg-gradient-to-r from-sky-300 to-cyan-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-300 to-amber-300 bg-clip-text text-transparent">
               BUILD YOUR FUTURE.
             </span>
           </SectionTitle>

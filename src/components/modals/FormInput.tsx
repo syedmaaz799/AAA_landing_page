@@ -23,7 +23,7 @@ export const FormInput = memo(function FormInput({
     <div className="space-y-2">
       <label htmlFor={inputId} className="block text-sm font-medium text-zinc-200">
         {label}
-        {required ? <span className="text-sky-400"> *</span> : null}
+        {required ? <span className="text-orange-400"> *</span> : null}
       </label>
       <input
         id={inputId}
@@ -32,7 +32,7 @@ export const FormInput = memo(function FormInput({
         className={cn(
           "min-h-12 w-full rounded-xl border bg-white/[0.04] px-4 text-sm text-white",
           "placeholder:text-zinc-500 transition-[border-color,box-shadow] duration-200",
-          "focus:border-sky-500/50 focus:outline-none focus:ring-2 focus:ring-sky-500/20",
+          "focus:border-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-500/20",
           error ? "border-red-500/50" : "border-white/10",
           className,
         )}
