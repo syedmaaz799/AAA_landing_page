@@ -70,7 +70,7 @@ export function Hero() {
           >
             <span className="flex items-center gap-2 text-sm font-medium text-orange-200">
               <Rocket className="size-4 text-orange-400" />
-              Cohort 1 Applications Now Open
+              Cohort Applications Now Open
             </span>
             <span className="hidden h-4 w-px bg-orange-500/30 sm:block" />
             <span className="flex items-center gap-1.5 text-xs text-orange-100/80 sm:text-sm">
@@ -155,7 +155,7 @@ export function Hero() {
             className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
           >
             <GlowButton variant="primary" modalAction="enroll">
-              Enroll in Cohort 1
+              Enroll in Cohort
             </GlowButton>
             <GlowButton variant="secondary" modalAction="brochure">
               <Download className="mr-2 size-4" />

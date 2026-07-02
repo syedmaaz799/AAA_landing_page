@@ -446,7 +446,7 @@ export function FinalCTASection() {
           </SectionSubtitle>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <GlowButton variant="primary" modalAction="enroll">
-              Enroll in Cohort 1
+              Enroll in Cohort
             </GlowButton>
             <GlowButton variant="secondary" href={WHATSAPP_BOOKING_URL}>
               Book Free AI Career Consultation

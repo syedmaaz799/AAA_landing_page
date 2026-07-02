@@ -240,7 +240,7 @@ export function WhoShouldJoinSection() {
           </h3>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <GlowButton variant="primary" modalAction="enroll">
-              Join Cohort 1
+              Join Cohort
             </GlowButton>
             <GlowButton variant="secondary" modalAction="brochure">
               Download Brochure

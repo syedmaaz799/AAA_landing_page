@@ -7,12 +7,12 @@ import { WHATSAPP_BOOKING_URL } from "@/lib/whatsapp"
 const revealEase = [0.22, 1, 0.36, 1] as const
 
 const reveal = (delay: number) => ({
-  hidden: { opacity: 0, y: 80, filter: "blur(12px)" },
+  hidden: { opacity: 0, y: 48, filter: "blur(8px)" },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.8, delay, ease: revealEase },
+    transition: { duration: 0.6, delay, ease: revealEase },
   },
 })
 
@@ -51,53 +51,46 @@ export function PricingSection() {
           <motion.span
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={reveal(0.1)}
+            viewport={{ once: true, margin: "-120px" }}
+            variants={reveal(0)}
             className="mb-6 inline-flex items-center rounded-full border border-orange-500/25 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold tracking-[0.2em] text-orange-300 uppercase"
           >
             Pricing
           </motion.span>
 
           <motion.div
-            className="pricing-headline-wrap flex flex-col items-center justify-center gap-0 text-center"
+            className="pricing-headline-wrap"
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           >
-            <motion.h2
+            <motion.div
+              className="flex flex-col items-center justify-center gap-0 text-center"
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={reveal(0.2)}
-              className="pricing-headline-line pricing-headline-shimmer"
+              viewport={{ once: true, margin: "-120px" }}
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
+              }}
             >
-              ONE MONTH.
-            </motion.h2>
-            <motion.h2
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={reveal(0.35)}
-              className="pricing-headline-line pricing-headline-shimmer"
-            >
-              ONE DECISION.
-            </motion.h2>
-            <motion.h2
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={reveal(0.5)}
-              className="pricing-headline-line pricing-hero-shift"
-            >
-              ONE CAREER SHIFT.
-            </motion.h2>
+              <motion.h2 variants={reveal(0)} className="pricing-headline-line pricing-headline-shimmer">
+                ONE MONTH.
+              </motion.h2>
+              <motion.h2 variants={reveal(0)} className="pricing-headline-line pricing-headline-shimmer">
+                ONE DECISION.
+              </motion.h2>
+              <motion.h2 variants={reveal(0)} className="pricing-headline-line pricing-hero-shift">
+                ONE CAREER SHIFT.
+              </motion.h2>
+            </motion.div>
           </motion.div>
 
           <motion.p
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={reveal(0.7)}
-            className="pricing-hero-subtext mx-auto mt-8"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={reveal(0.22)}
+            className="pricing-hero-subtext mx-auto mt-6"
           >
             The next twelve months will pass either way. The only question is
             whether you spend them consuming AI or building with it.
@@ -107,9 +100,9 @@ export function PricingSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={reveal(0.9)}
-          className="mt-10 w-full max-w-md"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={reveal(0.32)}
+          className="mt-8 w-full max-w-md"
         >
           <motion.div
             whileHover={{ y: -4, scale: 1.01 }}
@@ -119,17 +112,14 @@ export function PricingSection() {
             <p className="text-lg text-zinc-500 line-through md:text-xl">₹49,999</p>
 
             <div className="mt-6 rounded-2xl border border-amber-500/25 bg-amber-500/10 px-6 py-5">
-              <p className="text-xs font-semibold tracking-[0.2em] text-amber-300 uppercase">
-                First 25 Seats
-              </p>
-              <p className="mt-2 text-5xl font-bold tracking-tight text-white md:text-6xl">
+              <p className="text-5xl font-bold tracking-tight text-white md:text-6xl">
                 ₹14,999
               </p>
             </div>
 
             <div className="mt-8 flex flex-col gap-3">
               <GlowButton variant="primary" modalAction="enroll" className="w-full">
-                Enroll in Cohort 1
+                Enroll in Cohort
               </GlowButton>
               <GlowButton variant="secondary" href={WHATSAPP_BOOKING_URL} className="w-full">
                 Book Free Consultation

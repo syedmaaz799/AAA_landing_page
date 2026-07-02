@@ -56,7 +56,7 @@ export function CustomCursor() {
     }
   }, [isTouchDevice])
 
-  if (isTouchDevice || isHovering) {
+  if (isTouchDevice) {
     return null
   }
 
@@ -67,10 +67,14 @@ export function CustomCursor() {
       animate={{
         x: mousePosition.x - CURSOR_OFFSET,
         y: mousePosition.y - CURSOR_OFFSET,
+        scale: isHovering ? 1.8 : 1,
+        opacity: isHovering ? 0.8 : 1,
       }}
       transition={{
         duration: prefersReducedMotion ? 0 : 0.1,
         ease: "easeOut",
+        scale: { duration: 0.2 },
+        opacity: { duration: 0.2 },
       }}
     />
   )

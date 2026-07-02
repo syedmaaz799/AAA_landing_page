@@ -17,10 +17,10 @@ export function Footer() {
             NeuralVarsity
           </p>
         </div>
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="mt-1 text-sm text-zinc-200">
           AI Agents & Automation Master Program
         </p>
-        <p className="text-xs text-zinc-500">
+        <p className="text-xs text-zinc-300">
           AI Agents & Automation Professional Certificate Program
         </p>
         <a

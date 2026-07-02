@@ -26,7 +26,13 @@ body.custom-cursor-enabled textarea,
 body.custom-cursor-enabled select,
 body.custom-cursor-enabled [role="button"],
 body.custom-cursor-enabled [data-cursor-hide] {
-  cursor: pointer;
+  cursor: none !important;
+}
+
+body.custom-cursor-enabled *,
+body.custom-cursor-enabled *::before,
+body.custom-cursor-enabled *::after {
+  cursor: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -57,7 +57,7 @@ export function Navbar() {
               <span className="font-brand text-lg font-bold tracking-tight text-white md:text-xl">
                 NeuralVarsity
               </span>
-              <span className="text-[10px] tracking-widest text-zinc-500 uppercase md:text-xs">
+              <span className="text-[10px] tracking-widest text-zinc-300 uppercase md:text-xs">
                 AI Agents & Automation
               </span>
             </div>

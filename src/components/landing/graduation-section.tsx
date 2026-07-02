@@ -14,7 +14,7 @@ const cinematicReveal = (delay: number) => ({
     y: 0,
     scale: 1,
     filter: "blur(0px)",
-    transition: { duration: 0.8, delay, ease: revealEase },
+    transition: { duration: 0.65, delay, ease: revealEase },
   },
 })
 
@@ -46,10 +46,10 @@ function WordReveal({
           className="inline-block"
           initial={{ opacity: 0, y: 50, filter: "blur(8px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, margin: "-120px" }}
           transition={{
-            duration: 0.7,
-            delay: delay + index * 0.05,
+            duration: 0.55,
+            delay: delay + index * 0.03,
             ease: revealEase,
           }}
         >
@@ -118,12 +118,12 @@ export function GraduationSection() {
           <WordReveal
             text="NOT JUST A CERTIFICATE."
             className="graduation-headline-line text-white"
-            delay={0.25}
+            delay={0.05}
           />
           <WordReveal
             text="A CAREER PORTFOLIO."
             className="graduation-headline-line graduation-headline-gradient"
-            delay={0.45}
+            delay={0.15}
           />
         </motion.div>
 
@@ -131,8 +131,8 @@ export function GraduationSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          variants={cinematicReveal(0.65)}
-          className="graduation-subtext mx-auto mt-10 mb-20 max-w-[850px]"
+          variants={cinematicReveal(0.3)}
+          className="graduation-subtext mx-auto mt-8 mb-12 max-w-[850px]"
         >
           Build real assets, deploy production-ready AI systems, and graduate
           with a portfolio that demonstrates your skills to employers and
@@ -142,11 +142,11 @@ export function GraduationSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={{
             hidden: {},
             visible: {
-              transition: { staggerChildren: 0.08, delayChildren: 0.85 },
+              transition: { staggerChildren: 0.06, delayChildren: 0.25 },
             },
           }}
           className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3"
@@ -166,7 +166,7 @@ export function GraduationSection() {
                   y: 0,
                   scale: 1,
                   filter: "blur(0px)",
-                  transition: { duration: 0.8, ease: revealEase },
+                  transition: { duration: 0.65, ease: revealEase },
                 },
               }}
             >
