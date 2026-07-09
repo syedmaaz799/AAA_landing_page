@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "NeuralVarsity | AI Agents & Automation Master Program",
     description:
-      "Build AI Agents. Automate Businesses. Become an Agentic AI Engineer.",
+      "Build AI Agents. Automate Businesses. Become an Agentic AI Professional.",
     url: "https://neuralvarsity.ai",
     siteName: "NeuralVarsity",
     type: "website",

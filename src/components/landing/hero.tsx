@@ -109,7 +109,7 @@ export function Hero() {
                 variants={headlineVariants}
                 className="hero-text-white-glow text-3xl leading-[1.08] font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
               >
-                BECOME AN AGENTIC AI ENGINEER.
+                BECOME AN AGENTIC AI PROFESSIONAL.
               </motion.h1>
             </div>
           </div>

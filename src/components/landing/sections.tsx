@@ -441,8 +441,8 @@ export function FinalCTASection() {
             </span>
           </SectionTitle>
           <SectionSubtitle className="mx-auto">
-            Become job-ready in Agentic AI, Automation, and AI Engineering by
-            building real systems that companies and clients actually need.
+            Become job-ready as an Agentic AI Professional by building real
+            systems that companies and clients actually need.
           </SectionSubtitle>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <GlowButton variant="primary" modalAction="enroll">

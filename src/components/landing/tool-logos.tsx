@@ -2,25 +2,28 @@
 
 import type { SimpleIcon } from "simple-icons"
 import {
-  siAnthropic,
+  siClaude,
+  siCrewai,
   siCursor,
   siDeepseek,
+  siDify,
   siGithub,
   siGooglegemini,
   siGooglesheets,
+  siLangflow,
   siMake,
   siN8n,
   siPerplexity,
   siSupabase,
   siZapier,
 } from "simple-icons"
+import Image from "next/image"
 import {
   Braces,
   Cpu,
   GitBranch,
   Layers,
   Network,
-  Sparkles,
   Webhook,
   Workflow,
   type LucideIcon,
@@ -28,9 +31,10 @@ import {
 import { cn } from "@/lib/utils"
 
 type ToolIconConfig =
-  | { type: "simple"; icon: SimpleIcon }
+  | { type: "simple"; icon: SimpleIcon; color?: string }
   | { type: "lucide"; icon: LucideIcon; color: string }
   | { type: "custom"; color: string; render: () => React.ReactNode }
+  | { type: "image"; src: string; alt: string }
 
 const OPENAI_PATH =
   "M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .742 7.097 5.98 5.98 0 0 0 .511 4.911 6.051 6.051 0 0 0 6.515 2.899A5.985 5.985 0 0 0 13.94 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.427-3.073zM13.94 22.008a4.484 4.484 0 0 1-2.816-1.006l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.516 4.516 0 0 1-4.554 4.46zM3.605 18.066a4.499 4.499 0 0 1-.542-3.025l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.368v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.135-1.884zM2.34 7.896a4.485 4.485 0 0 1 2.365-1.972V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.755a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.168a.077.077 0 0 1-.038-.056V6.074a4.5 4.5 0 0 1 7.375-3.453l-.142.08-4.778 2.758a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"
@@ -66,16 +70,18 @@ function CustomSvg({
 function SimpleIconSvg({
   icon,
   className,
+  color,
 }: {
   icon: SimpleIcon
   className?: string
+  color?: string
 }) {
   return (
     <svg
       role="img"
       viewBox="0 0 24 24"
       className={cn("size-6 shrink-0", className)}
-      fill={`#${icon.hex}`}
+      fill={color ?? `#${icon.hex}`}
       aria-hidden="true"
     >
       <path d={icon.path} />
@@ -89,18 +95,10 @@ export const TOOL_ICON_MAP: Record<string, ToolIconConfig> = {
     color: "#10A37F",
     render: () => <CustomSvg path={OPENAI_PATH} color="#10A37F" />,
   },
-  Claude: { type: "simple", icon: siAnthropic },
+  Claude: { type: "simple", icon: siClaude },
   Gemini: { type: "simple", icon: siGooglegemini },
   DeepSeek: { type: "simple", icon: siDeepseek },
-  Dify: {
-    type: "custom",
-    color: "#155EEF",
-    render: () => (
-      <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-[#155EEF] text-xs font-bold text-white">
-        D
-      </span>
-    ),
-  },
+  Dify: { type: "simple", icon: siDify },
   n8n: { type: "simple", icon: siN8n },
   Flowise: {
     type: "custom",
@@ -111,28 +109,12 @@ export const TOOL_ICON_MAP: Record<string, ToolIconConfig> = {
       </span>
     ),
   },
-  LangFlow: {
-    type: "custom",
-    color: "#6366F1",
-    render: () => (
-      <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-indigo-500 text-[9px] font-bold text-white">
-        LF
-      </span>
-    ),
-  },
-  CrewAI: {
-    type: "custom",
-    color: "#FF5A5F",
-    render: () => (
-      <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-[#FF5A5F] text-[9px] font-bold text-white">
-        CA
-      </span>
-    ),
-  },
+  LangFlow: { type: "simple", icon: siLangflow, color: "#FFFFFF" },
+  CrewAI: { type: "simple", icon: siCrewai },
   "BuildMyAgent.io": {
-    type: "lucide",
-    icon: Sparkles,
-    color: "#FF8C00",
+    type: "image",
+    src: "/logos/buildmyagent.svg",
+    alt: "BuildMyAgent.io logo",
   },
   Emergent: {
     type: "lucide",
@@ -230,7 +212,21 @@ export function ToolLogo({
   if (config.type === "simple") {
     return (
       <div className={wrapperClass}>
-        <SimpleIconSvg icon={config.icon} />
+        <SimpleIconSvg icon={config.icon} color={config.color} />
+      </div>
+    )
+  }
+
+  if (config.type === "image") {
+    return (
+      <div className={wrapperClass}>
+        <Image
+          src={config.src}
+          alt={config.alt}
+          width={24}
+          height={24}
+          className="size-6 shrink-0 object-contain"
+        />
       </div>
     )
   }

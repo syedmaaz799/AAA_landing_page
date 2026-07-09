@@ -20,9 +20,6 @@ export function Footer() {
         <p className="mt-1 text-sm text-zinc-200">
           AI Agents & Automation Master Program
         </p>
-        <p className="text-xs text-zinc-300">
-          AI Agents & Automation Professional Certificate Program
-        </p>
         <a
           href="https://neuralvarsity.ai"
           className="mt-3 inline-block text-sm text-orange-400 hover:text-orange-300"

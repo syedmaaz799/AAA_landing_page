@@ -9,7 +9,7 @@ export const NAV_LINKS = [
 ] as const
 
 export const HERO_HEADLINES = [
-  "BUILD AI AGENTS.\nAUTOMATE BUSINESSES.\nBECOME AN AGENTIC AI ENGINEER.",
+  "BUILD AI AGENTS.\nAUTOMATE BUSINESSES.\nBECOME AN AGENTIC AI PROFESSIONAL.",
   "Launch Your Career Into the Age of AI Agents",
   "From Learning AI to Building AI Employees",
   "Master AI Agents & Automation and Build Production-Ready Systems",

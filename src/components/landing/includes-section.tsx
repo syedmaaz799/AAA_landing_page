@@ -116,7 +116,7 @@ function SectionHeader({ animated = true }: { animated?: boolean }) {
           EVERYTHING YOU NEED TO SUCCEED
         </h2>
         <p className="mx-auto mt-4 max-w-[750px] text-base leading-relaxed text-zinc-200 md:text-lg">
-          Everything you need to become an Agentic AI Engineer, build
+          Everything you need to become an Agentic AI Professional, build
           production-ready AI systems, and launch your career in AI and
           Automation.
         </p>
@@ -151,7 +151,7 @@ function SectionHeader({ animated = true }: { animated?: boolean }) {
         transition={{ duration: 0.7, delay: 0.2, ease: revealEase }}
         className="mx-auto mt-4 max-w-[750px] text-base leading-relaxed text-zinc-200 md:text-lg"
       >
-        Everything you need to become an Agentic AI Engineer, build
+        Everything you need to become an Agentic AI Professional, build
         production-ready AI systems, and launch your career in AI and
         Automation.
       </motion.p>
