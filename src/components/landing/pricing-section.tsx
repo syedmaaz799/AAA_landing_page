@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Sparkles } from "lucide-react"
 import { GlowButton } from "@/components/landing/motion"
-import { WHATSAPP_BOOKING_URL } from "@/lib/whatsapp"
 
 const revealEase = [0.22, 1, 0.36, 1] as const
 
@@ -117,12 +117,23 @@ export function PricingSection() {
               </p>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3">
+            <div className="mt-6 rounded-2xl border border-orange-500/25 bg-orange-500/[0.08] px-5 py-4 text-left">
+              <p className="flex items-center gap-2 text-sm font-semibold text-orange-200">
+                <Sparkles className="size-4 shrink-0 text-orange-400" />
+                Not ready to decide? Attend a free 2-hour masterclass first.
+              </p>
+              <p className="mt-1.5 text-xs leading-relaxed text-zinc-400">
+                Book any day within the next 14 days — 2:00 PM – 4:00 PM or
+                5:00 PM – 7:00 PM. Experience the program, then enroll.
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3">
               <GlowButton variant="primary" modalAction="enroll" className="w-full">
                 Enroll in Cohort
               </GlowButton>
-              <GlowButton variant="secondary" href={WHATSAPP_BOOKING_URL} className="w-full">
-                Book Free Consultation
+              <GlowButton variant="secondary" modalAction="enroll" className="w-full">
+                Book Free Masterclass
               </GlowButton>
             </div>
           </motion.div>

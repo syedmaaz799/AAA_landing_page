@@ -1,31 +1,26 @@
 import { NextResponse } from "next/server"
-import { createServerSupabaseClient } from "@/lib/supabase/server"
-import type { BrochureLeadPayload } from "@/lib/supabase/leads"
+import type { BrochureLeadPayload } from "@/lib/leads"
+
+function isValidPayload(body: BrochureLeadPayload) {
+  return Boolean(
+    body.fullName?.trim() &&
+      body.email?.trim() &&
+      body.countryCode?.trim() &&
+      body.phone?.trim() &&
+      body.city?.trim() &&
+      body.qualification?.trim() &&
+      body.termsAccepted === true,
+  )
+}
 
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as BrochureLeadPayload
 
-    const supabase = createServerSupabaseClient()
-    const { error } = await supabase.from("leads").insert({
-      type: "brochure",
-      full_name: body.fullName,
-      email: body.email,
-      country_code: body.countryCode,
-      phone: body.phone,
-      city: body.city,
-      qualification: body.qualification,
-      profession: body.profession,
-      experience_level: body.experienceLevel,
-      terms_accepted: body.termsAccepted,
-      metadata: { source: "landing_page_brochure_modal" },
-    })
-
-    if (error) {
-      console.error("[brochure] Supabase insert failed:", error.message)
+    if (!isValidPayload(body)) {
       return NextResponse.json(
-        { ok: false, message: "Unable to save your request. Please try again." },
-        { status: 500 },
+        { ok: false, message: "Please complete all required fields." },
+        { status: 400 },
       )
     }
 

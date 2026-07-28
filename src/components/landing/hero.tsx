@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Rocket, Sparkles, Download, Calendar } from "lucide-react"
 import { HERO_STATS } from "@/lib/landing-data"
-import { WHATSAPP_BOOKING_URL } from "@/lib/whatsapp"
 import { HeroParticles } from "@/components/landing/hero-particles"
 import { GlowButton } from "@/components/landing/motion"
 import { AnimatedShaderHero } from "@/components/ui/animated-shader-hero"
@@ -161,9 +160,9 @@ export function Hero() {
               <Download className="mr-2 size-4" />
               Download Brochure
             </GlowButton>
-            <GlowButton variant="ghost" href={WHATSAPP_BOOKING_URL}>
+            <GlowButton variant="ghost" modalAction="enroll">
               <Calendar className="mr-2 size-4" />
-              Book Free AI Career Consultation
+              Book Free AI Masterclass
             </GlowButton>
           </motion.div>
         </div>

@@ -20,7 +20,7 @@ import {
   validateRequired,
   validateTerms,
 } from "@/lib/form-validation"
-import type { BrochureLeadPayload } from "@/lib/supabase/leads"
+import type { BrochureLeadPayload } from "@/lib/leads"
 import { cn } from "@/lib/utils"
 
 type DownloadBrochureModalProps = {

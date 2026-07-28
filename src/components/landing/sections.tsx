@@ -448,8 +448,8 @@ export function FinalCTASection() {
             <GlowButton variant="primary" modalAction="enroll">
               Enroll in Cohort
             </GlowButton>
-            <GlowButton variant="secondary" href={WHATSAPP_BOOKING_URL}>
-              Book Free AI Career Consultation
+            <GlowButton variant="secondary" modalAction="enroll">
+              Book Free AI Masterclass
             </GlowButton>
             <GlowButton variant="ghost" href={WHATSAPP_BOOKING_URL} className="gap-2">
               <WhatsAppIcon className="size-4 text-[#25D366]" />

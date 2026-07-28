@@ -37,6 +37,17 @@ export const PROFESSIONS = [
   "Other",
 ] as const
 
+/** Options for NocoDB `user_role` on masterclass registrations. */
+export const USER_ROLES = PROFESSIONS
+
+export const MASTERCLASS_SLOTS = [
+  { id: "2pm-4pm", label: "2:00 PM – 4:00 PM" },
+  { id: "5pm-7pm", label: "5:00 PM – 7:00 PM" },
+] as const
+
+/** Number of days (starting tomorrow) available for masterclass booking. */
+export const MASTERCLASS_BOOKING_WINDOW_DAYS = 14
+
 export const MODAL_BENEFITS = [
   "Industry Projects",
   "Certification",

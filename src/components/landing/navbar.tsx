@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useLenis } from "lenis/react"
 import { Menu, X } from "lucide-react"
 import { NAV_LINKS } from "@/lib/landing-data"
-import { WHATSAPP_BOOKING_URL } from "@/lib/whatsapp"
 import { GlowButton } from "@/components/landing/motion"
 import { cn } from "@/lib/utils"
 
@@ -76,8 +75,8 @@ export function Navbar() {
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
-            <GlowButton variant="ghost" href={WHATSAPP_BOOKING_URL} className="!px-5 !py-2.5 !text-sm">
-              Book Consultation
+            <GlowButton variant="ghost" modalAction="enroll" className="!px-5 !py-2.5 !text-sm">
+              Book Free Masterclass
             </GlowButton>
             <GlowButton variant="primary" modalAction="enroll" className="!px-5 !py-2.5 !text-sm">
               Enroll Now
@@ -124,8 +123,8 @@ export function Navbar() {
                 ))}
               </div>
               <div className="mt-auto flex flex-col gap-3">
-                <GlowButton variant="ghost" href={WHATSAPP_BOOKING_URL} onClick={() => setMobileOpen(false)}>
-                  Book Consultation
+                <GlowButton variant="ghost" modalAction="enroll" onClick={() => setMobileOpen(false)}>
+                  Book Free Masterclass
                 </GlowButton>
                 <GlowButton
                   variant="primary"

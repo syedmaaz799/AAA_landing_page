@@ -42,7 +42,7 @@ export const FormSelect = memo(function FormSelect({
         )}
         {...props}
       >
-        <option value="" disabled className="bg-[#111] text-zinc-400">
+        <option value="" disabled hidden className="bg-[#111] text-zinc-400">
           {placeholder}
         </option>
         {options.map((option) =>
