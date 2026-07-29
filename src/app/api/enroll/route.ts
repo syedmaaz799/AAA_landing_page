@@ -77,7 +77,7 @@ export async function POST(request: Request) {
       }
 
       const result = await createAaaRegistration(
-        toNocoAaaRegistrationRecord(body),
+        toNocoAaaRegistrationRecord(body, "direct"),
       )
 
       if (!result.ok) {

@@ -1,6 +1,19 @@
 import { getServerEnv } from "@/lib/env"
-import type { EnrollLeadPayload } from "@/lib/leads"
+import type { BrochureLeadPayload, EnrollLeadPayload } from "@/lib/leads"
 import { MASTERCLASS_SLOTS } from "@/lib/modal-form-data"
+
+type AaaLeadFields = Pick<
+  BrochureLeadPayload,
+  | "fullName"
+  | "email"
+  | "countryCode"
+  | "phone"
+  | "city"
+  | "qualification"
+  | "profession"
+  | "experienceLevel"
+  | "termsAccepted"
+>
 
 /** NocoDB `Masterclass` table row (exact column names). */
 export type NocoMasterclassRecord = {
@@ -15,6 +28,9 @@ export type NocoMasterclassRecord = {
   slot_time: string
 }
 
+/** Which form produced an `AAA_registration` row. */
+export type AaaLeadSource = "direct" | "brochure"
+
 /** NocoDB `AAA_registration` table row (exact column names). */
 export type NocoAaaRegistrationRecord = {
   full_name: string
@@ -26,6 +42,7 @@ export type NocoAaaRegistrationRecord = {
   profession: string
   experience_level: string
   termsAccepted: boolean
+  source: AaaLeadSource
 }
 
 function slotLabel(slotId: string): string {
@@ -50,9 +67,11 @@ export function toNocoMasterclassRecord(
 }
 
 export function toNocoAaaRegistrationRecord(
-  body: EnrollLeadPayload,
+  body: AaaLeadFields,
+  source: AaaLeadSource,
 ): NocoAaaRegistrationRecord {
   return {
+    source,
     full_name: body.fullName.trim(),
     email: body.email.trim(),
     country_code: body.countryCode.trim(),
@@ -116,6 +135,6 @@ export async function createAaaRegistration(
   return insertNocoRecord(
     env.nocodbAaaRegistrationTableId,
     record,
-    "Enrollment",
+    "Registration",
   )
 }
