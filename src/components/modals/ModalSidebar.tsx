@@ -4,7 +4,7 @@ import { memo } from "react"
 import {
   Award,
   BriefcaseBusiness,
-  GraduationCap,
+  UsersRound,
   Video,
 } from "lucide-react"
 import { CURRICULUM } from "@/lib/landing-data"
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils"
 const benefitIcons = {
   "Industry Projects": BriefcaseBusiness,
   Certification: Award,
-  "Placement Assistance": GraduationCap,
+  "Expert Mentorship": UsersRound,
   "Live Sessions": Video,
 } as const
 

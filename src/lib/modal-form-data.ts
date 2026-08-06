@@ -51,7 +51,7 @@ export const MASTERCLASS_BOOKING_WINDOW_DAYS = 14
 export const MODAL_BENEFITS = [
   "Industry Projects",
   "Certification",
-  "Placement Assistance",
+  "Expert Mentorship",
   "Live Sessions",
 ] as const
 
