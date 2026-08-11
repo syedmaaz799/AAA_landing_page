@@ -9,6 +9,11 @@ import {
   toNocoAaaRegistrationRecord,
   toNocoMasterclassRecord,
 } from "@/lib/nocodb"
+import {
+  buildAaaRegistrationConfirmationEmail,
+  buildMasterclassConfirmationEmail,
+} from "@/lib/email-templates"
+import { sendHtmlEmail } from "@/lib/gmail"
 
 function missingMasterclassFields(body: EnrollLeadPayload): string[] {
   const missing: string[] = []
@@ -64,6 +69,21 @@ export async function POST(request: Request) {
         )
       }
 
+      // Confirmation email is best-effort; registration already succeeded.
+      const to = normalized.email.trim()
+      const emailSent = await sendHtmlEmail({
+        to,
+        ...buildMasterclassConfirmationEmail({
+          fullName: normalized.fullName.trim(),
+          email: to,
+          slotDate: normalized.slotDate.trim(),
+          slotTime: normalized.slotTime.trim(),
+        }),
+      })
+      if (!emailSent) {
+        console.error(`[enroll] Confirmation email not sent to ${to}`)
+      }
+
       return NextResponse.json({ ok: true })
     }
 
@@ -85,6 +105,22 @@ export async function POST(request: Request) {
           { ok: false, message: result.message },
           { status: 502 },
         )
+      }
+
+      // Confirmation email is best-effort; registration already succeeded.
+      const to = body.email.trim()
+      const emailSent = await sendHtmlEmail({
+        to,
+        ...buildAaaRegistrationConfirmationEmail({
+          fullName: body.fullName.trim(),
+          email: to,
+          countryCode: body.countryCode.trim(),
+          phone: body.phone.trim(),
+          city: body.city.trim(),
+        }),
+      })
+      if (!emailSent) {
+        console.error(`[enroll] Confirmation email not sent to ${to}`)
       }
 
       return NextResponse.json({ ok: true })

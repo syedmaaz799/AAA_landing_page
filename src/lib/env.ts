@@ -48,6 +48,39 @@ export function getServerEnv(): ServerEnv {
   return cached
 }
 
+export type GmailEnv = {
+  clientId: string
+  clientSecret: string
+  refreshToken: string
+  senderEmail: string
+  senderName: string
+}
+
+/**
+ * Gmail OAuth env for sending confirmation emails.
+ * Returns null when not configured so registration keeps working without email.
+ * Deliberately not cached: dev env reloads must be picked up immediately.
+ */
+export function getGmailEnv(): GmailEnv | null {
+  const clientId = process.env.GMAIL_CLIENT_ID?.trim()
+  const clientSecret = process.env.GMAIL_CLIENT_SECRET?.trim()
+  const refreshToken = process.env.GMAIL_REFRESH_TOKEN?.trim()
+  const senderEmail = process.env.GMAIL_SENDER_EMAIL?.trim()
+
+  if (!clientId || !clientSecret || !refreshToken || !senderEmail) {
+    return null
+  }
+
+  return {
+    clientId,
+    clientSecret,
+    refreshToken,
+    senderEmail,
+    senderName:
+      process.env.GMAIL_SENDER_NAME?.trim() || "NeuralVarsity Admissions",
+  }
+}
+
 export function getPublicSiteUrl(): string {
   return (
     process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "") ||
