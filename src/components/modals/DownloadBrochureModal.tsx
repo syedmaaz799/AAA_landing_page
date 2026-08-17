@@ -47,7 +47,7 @@ const initialForm: BrochureLeadPayload = {
 function triggerBrochureDownload() {
   const link = document.createElement("a")
   link.href = BROCHURE_DOWNLOAD_PATH
-  link.download = "AAA-Brochure.pdf"
+  link.download = "AI-Agents-Automation-Brochure.pdf"
   link.rel = "noopener"
   document.body.appendChild(link)
   link.click()

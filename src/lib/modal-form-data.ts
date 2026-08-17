@@ -55,4 +55,4 @@ export const MODAL_BENEFITS = [
   "Live Sessions",
 ] as const
 
-export const BROCHURE_DOWNLOAD_PATH = "/downloads/neuralvarsity-brochure.pdf"
+export const BROCHURE_DOWNLOAD_PATH = "/downloads/neuralvarsity-brochure.pdf?v=20260817"
