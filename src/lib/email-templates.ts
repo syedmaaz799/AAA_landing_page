@@ -295,7 +295,7 @@ Hi ${name}, your registration for the <strong style="color:#ffffff;">AI Agents &
 <tr><td style="color:#8a7364;">Email</td><td style="color:#150800;">${email}</td></tr>
 <tr><td style="color:#8a7364;">Phone</td><td style="color:#150800;">${phone}</td></tr>
 <tr><td style="color:#8a7364;">City</td><td style="color:#150800;">${city}</td></tr>
-<tr><td style="color:#8a7364;">Program</td><td style="color:#150800;"><strong>AI Agents &amp; Automation Master Program</strong> &middot; 4 weeks &middot; Live cohort</td></tr>
+<tr><td style="color:#8a7364;">Program</td><td style="color:#150800;"><strong>AI Agents &amp; Automation Master Program</strong> &middot; 6 weeks &middot; Live cohort</td></tr>
 <tr><td style="color:#8a7364;">Status</td><td style="color:#ea7014;font-weight:bold;">Received &#10003;</td></tr>
 </table>
 
@@ -323,7 +323,7 @@ Hi ${name}, your registration for the <strong style="color:#ffffff;">AI Agents &
 <div style="border:1px solid #f3e3d3;border-radius:12px;padding:18px;">
 <div style="font-size:24px;">&#129302;</div>
 <h3 style="margin:8px 0 6px;color:#150800;font-size:16px;">Start Building</h3>
-<p style="margin:0;color:#8a7364;font-size:14px;line-height:1.6;">Get ready for 4 weeks of hands-on sessions building real AI agents and automations.</p>
+<p style="margin:0;color:#8a7364;font-size:14px;line-height:1.6;">Get ready for 6 weeks of hands-on sessions building real AI agents and automations.</p>
 </div>
 </td>
 </tr>
@@ -332,6 +332,7 @@ Hi ${name}, your registration for the <strong style="color:#ffffff;">AI Agents &
 <h2 style="margin:38px 0 14px;color:#150800;font-size:22px;">Your program includes</h2>
 
 <ul style="margin:0;padding-left:20px;color:#4a3a2e;line-height:2;font-size:15px;">
+<li>36 live instructor-led sessions across 6 weeks</li>
 <li>80+ hours of live, hands-on training</li>
 <li>10+ industry projects for your portfolio</li>
 <li>AI agents, automation workflows &amp; production-ready systems</li>

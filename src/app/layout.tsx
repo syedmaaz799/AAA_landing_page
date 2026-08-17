@@ -24,7 +24,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "NeuralVarsity | AI Agents & Automation Master Program",
   description:
-    "Become job-ready in Agentic AI. Build AI agents, automation workflows, and production-ready systems in 4 weeks. Enroll in Cohort.",
+    "Become job-ready in Agentic AI. Build AI agents, automation workflows, and production-ready systems in 6 weeks. Enroll in Cohort.",
   keywords: [
     "Agentic AI",
     "AI Agents",

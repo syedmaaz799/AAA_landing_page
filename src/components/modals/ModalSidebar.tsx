@@ -21,7 +21,7 @@ const benefitIcons = {
 const PROGRAM_STATS = [
   { value: "80+", label: "Hours" },
   { value: "10+", label: "Projects" },
-  { value: "4", label: "Weeks" },
+  { value: "6", label: "Weeks" },
 ] as const
 
 type ModalSidebarProps = {
@@ -74,7 +74,7 @@ export const ModalSidebar = memo(function ModalSidebar({ className }: ModalSideb
           <p className="text-sm leading-relaxed text-zinc-300">
             Build production-ready AI agents, automation workflows, and
             portfolio projects in{" "}
-            <span className="font-semibold text-orange-200">4 weeks</span>.
+            <span className="font-semibold text-orange-200">6 weeks</span>.
           </p>
 
           <div className="mt-3 flex flex-wrap gap-1.5">
@@ -120,7 +120,7 @@ export const ModalSidebar = memo(function ModalSidebar({ className }: ModalSideb
 
         <div className="mt-4 shrink-0">
           <p className="mb-2 text-[10px] font-semibold tracking-[0.2em] text-orange-300/90 uppercase">
-            4-Week Curriculum
+            6-Week Curriculum
           </p>
           <div className="grid grid-cols-2 gap-2">
             {CURRICULUM.map((item) => (

@@ -200,7 +200,7 @@ export function CurriculumSection() {
         <FadeUp>
           <div id="curriculum" className="scroll-mt-28">
             <SectionLabel>Curriculum</SectionLabel>
-            <SectionTitle>4-WEEK AI AGENTS & AUTOMATION MASTER PROGRAM</SectionTitle>
+            <SectionTitle>6-WEEK AI AGENTS & AUTOMATION MASTER PROGRAM</SectionTitle>
             <SectionSubtitle>
               A structured, hands-on journey from AI foundations to deploying
               your own AI Employee.

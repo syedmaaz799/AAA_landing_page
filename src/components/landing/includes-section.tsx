@@ -35,7 +35,7 @@ type IncludeItem = {
 
 const PROGRAM_INCLUDE_ITEMS: IncludeItem[] = [
   {
-    title: "20 Live Instructor-Led Sessions",
+    title: "36 Live Instructor-Led Sessions",
     description:
       "Learn directly from industry experts through live interactive classes.",
     icon: Presentation,

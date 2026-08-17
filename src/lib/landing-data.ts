@@ -17,7 +17,7 @@ export const HERO_HEADLINES = [
 
 export const HERO_STATS = [
   "80+ Hours Hands-On Learning",
-  "20 Live Instructor-Led Sessions",
+  "36 Live Instructor-Led Sessions",
   "10+ Projects & Assignments",
   "4+ Production-Ready AI Agents",
   "1 Personal AI Employee",
@@ -409,7 +409,7 @@ export const PROGRAM_DIFFERENTIATORS = [
 ] as const
 
 export const PROGRAM_INCLUDES = [
-  "20 Live Instructor-Led Sessions",
+  "36 Live Instructor-Led Sessions",
   "80+ Hours Hands-On Learning",
   "10+ Projects & Assignments",
   "AI Business Automation Suite Capstone",
@@ -453,7 +453,7 @@ export const FAQS = [
   },
   {
     q: "Is the schedule suitable for working professionals?",
-    a: "Yes. The program is structured as a focused four-week cohort with live sessions, on-demand recordings, and a pace designed to accommodate professionals balancing work and learning commitments.",
+    a: "Yes. The program is structured as a focused six-week cohort with live sessions, on-demand recordings, and a pace designed to accommodate professionals balancing work and learning commitments.",
   },
 ] as const
 
