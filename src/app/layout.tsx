@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono, Poppins } from "next/font/google"
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider"
 import { CustomCursor } from "@/components/ui/custom-cursor"
+import { LeadChannelCapture } from "@/components/lead-channel-capture"
 import "./globals.css"
 import "lenis/dist/lenis.css"
 
@@ -56,6 +57,7 @@ export default function RootLayout({
     >
       <body className="min-h-full overflow-x-hidden antialiased">
         <SmoothScrollProvider>
+          <LeadChannelCapture />
           <CustomCursor />
           {children}
         </SmoothScrollProvider>

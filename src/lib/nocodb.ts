@@ -1,5 +1,9 @@
 import { getServerEnv } from "@/lib/env"
 import type { BrochureLeadPayload, EnrollLeadPayload } from "@/lib/leads"
+import {
+  normalizeLeadChannel,
+  type LeadChannel,
+} from "@/lib/lead-channel"
 import { MASTERCLASS_SLOTS } from "@/lib/modal-form-data"
 
 type AaaLeadFields = Pick<
@@ -13,6 +17,7 @@ type AaaLeadFields = Pick<
   | "profession"
   | "experienceLevel"
   | "termsAccepted"
+  | "leadChannel"
 >
 
 /** NocoDB `Masterclass` table row (exact column names). */
@@ -26,6 +31,7 @@ export type NocoMasterclassRecord = {
   course_name: string
   slot_date: string
   slot_time: string
+  lead_channel: LeadChannel
 }
 
 /** Which form produced an `AAA_registration` row. */
@@ -43,6 +49,7 @@ export type NocoAaaRegistrationRecord = {
   experience_level: string
   termsAccepted: boolean
   source: AaaLeadSource
+  lead_channel: LeadChannel
 }
 
 function slotLabel(slotId: string): string {
@@ -63,6 +70,7 @@ export function toNocoMasterclassRecord(
     course_name: body.courseName.trim(),
     slot_date: body.slotDate.trim(),
     slot_time: slotLabel(body.slotTime.trim()),
+    lead_channel: normalizeLeadChannel(body.leadChannel),
   }
 }
 
@@ -72,6 +80,7 @@ export function toNocoAaaRegistrationRecord(
 ): NocoAaaRegistrationRecord {
   return {
     source,
+    lead_channel: normalizeLeadChannel(body.leadChannel),
     full_name: body.fullName.trim(),
     email: body.email.trim(),
     country_code: body.countryCode.trim(),

@@ -26,6 +26,7 @@ import {
   type EnrollLeadPayload,
   type RegistrationType,
 } from "@/lib/leads"
+import { getStoredLeadChannel } from "@/lib/lead-channel"
 import { cn } from "@/lib/utils"
 
 type EnrollNowModalProps = {
@@ -165,8 +166,12 @@ export const EnrollNowModal = memo(function EnrollNowModal({
               profession: "",
               experienceLevel: "",
               termsAccepted: false,
+              leadChannel: getStoredLeadChannel(),
             }
-          : form
+          : {
+              ...form,
+              leadChannel: getStoredLeadChannel(),
+            }
 
       const response = await fetch("/api/enroll", {
         method: "POST",

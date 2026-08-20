@@ -1,3 +1,5 @@
+import type { LeadChannel } from "@/lib/lead-channel"
+
 export type BrochureLeadPayload = {
   fullName: string
   email: string
@@ -8,6 +10,8 @@ export type BrochureLeadPayload = {
   profession: string
   experienceLevel: string
   termsAccepted: boolean
+  /** Acquisition channel — e.g. Pamphlet QR vs organic website */
+  leadChannel?: LeadChannel
 }
 
 export type RegistrationType = "masterclass" | "direct"
@@ -38,6 +42,8 @@ export type EnrollLeadPayload = {
   profession: string
   experienceLevel: string
   termsAccepted: boolean
+  /** Acquisition channel — e.g. Pamphlet QR vs organic website */
+  leadChannel?: LeadChannel
 }
 
 export const MASTERCLASS_COURSE_NAME = "AI Agents & Automation Master Program"

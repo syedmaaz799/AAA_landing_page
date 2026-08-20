@@ -21,6 +21,7 @@ import {
   validateTerms,
 } from "@/lib/form-validation"
 import type { BrochureLeadPayload } from "@/lib/leads"
+import { getStoredLeadChannel } from "@/lib/lead-channel"
 import { cn } from "@/lib/utils"
 
 type DownloadBrochureModalProps = {
@@ -98,7 +99,10 @@ export const DownloadBrochureModal = memo(function DownloadBrochureModal({
       const response = await fetch("/api/brochure", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          leadChannel: getStoredLeadChannel(),
+        }),
       })
 
       const data = (await response.json()) as { ok?: boolean; message?: string }
