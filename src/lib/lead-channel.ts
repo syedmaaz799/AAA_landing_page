@@ -1,5 +1,9 @@
 /** Marketing / acquisition channel for a lead (separate from form `source`). */
-export type LeadChannel = "Pamphlet" | "Auto Rickshaw" | "Website"
+export type LeadChannel =
+  | "Pamphlet"
+  | "Auto Rickshaw"
+  | "Influencer Story / Post"
+  | "Website"
 
 const STORAGE_KEY = "nv_lead_channel"
 
@@ -11,6 +15,13 @@ const CHANNEL_ALIASES: Record<string, LeadChannel> = {
   "auto rickshaw": "Auto Rickshaw",
   auto: "Auto Rickshaw",
   rickshaw: "Auto Rickshaw",
+  "influencer story / post": "Influencer Story / Post",
+  "influencer-story-post": "Influencer Story / Post",
+  "influencer story post": "Influencer Story / Post",
+  influencer: "Influencer Story / Post",
+  "influencer-story": "Influencer Story / Post",
+  "influencer post": "Influencer Story / Post",
+  "influencer-post": "Influencer Story / Post",
   website: "Website",
 }
 
