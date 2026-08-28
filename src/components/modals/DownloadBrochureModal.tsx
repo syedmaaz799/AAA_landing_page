@@ -22,6 +22,7 @@ import {
 } from "@/lib/form-validation"
 import type { BrochureLeadPayload } from "@/lib/leads"
 import { getStoredLeadChannel } from "@/lib/lead-channel"
+import { trackMetaEvent } from "@/lib/meta-pixel"
 import { cn } from "@/lib/utils"
 
 type DownloadBrochureModalProps = {
@@ -112,6 +113,7 @@ export const DownloadBrochureModal = memo(function DownloadBrochureModal({
         return
       }
 
+      trackMetaEvent("Lead", { content_name: "brochure" })
       triggerBrochureDownload()
       onSuccess("Your brochure is downloading. We will also reach out shortly.")
       setForm(initialForm)

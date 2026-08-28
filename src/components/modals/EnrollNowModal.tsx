@@ -27,6 +27,7 @@ import {
   type RegistrationType,
 } from "@/lib/leads"
 import { getStoredLeadChannel } from "@/lib/lead-channel"
+import { trackMetaEvent } from "@/lib/meta-pixel"
 import { cn } from "@/lib/utils"
 
 type EnrollNowModalProps = {
@@ -184,6 +185,14 @@ export const EnrollNowModal = memo(function EnrollNowModal({
       if (!response.ok || !data.ok) {
         setErrors({ submit: data.message ?? "Unable to submit. Please try again." })
         return
+      }
+
+      if (form.registrationType === "masterclass") {
+        trackMetaEvent("Schedule")
+        trackMetaEvent("Lead", { content_name: "masterclass" })
+      } else {
+        trackMetaEvent("CompleteRegistration")
+        trackMetaEvent("Lead", { content_name: "direct_enrollment" })
       }
 
       onSuccess(

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Poppins } from "next/font/google"
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider"
 import { CustomCursor } from "@/components/ui/custom-cursor"
 import { LeadChannelCapture } from "@/components/lead-channel-capture"
+import { MetaPixel } from "@/components/meta-pixel"
 import "./globals.css"
 import "lenis/dist/lenis.css"
 
@@ -56,6 +57,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full dark`}
     >
       <body className="min-h-full overflow-x-hidden antialiased">
+        <MetaPixel />
         <SmoothScrollProvider>
           <LeadChannelCapture />
           <CustomCursor />
