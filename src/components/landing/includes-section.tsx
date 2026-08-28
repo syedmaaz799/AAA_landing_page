@@ -192,6 +192,24 @@ function IncludeCard({ item }: { item: IncludeItem }) {
   )
 }
 
+function MobileIncludesCarousel() {
+  return (
+    <section className="includes-mobile-section relative overflow-x-hidden py-16 md:py-20 lg:hidden">
+      <SectionHeader />
+      <div className="includes-mobile-track-viewport mt-10 w-full">
+        <div className="includes-mobile-track">
+          {PROGRAM_INCLUDE_ITEMS.map((item) => (
+            <IncludeCard key={item.title} item={item} />
+          ))}
+        </div>
+      </div>
+      <p className="includes-scroll-hint mt-6 text-center text-xs text-zinc-500">
+        Swipe to explore all program benefits →
+      </p>
+    </section>
+  )
+}
+
 function PinnedIncludesScroll() {
   const sectionRef = useRef<HTMLElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
@@ -269,7 +287,6 @@ function PinnedIncludesScroll() {
     }
 
     mm.add("(min-width: 1024px)", () => buildScrollTrigger(1, 1, "fixed"))
-    mm.add("(max-width: 1023px)", () => buildScrollTrigger(0.82, true, "transform"))
 
     return () => mm.revert()
   }, [lenis])
@@ -277,8 +294,7 @@ function PinnedIncludesScroll() {
   return (
     <section
       ref={sectionRef}
-      className="includes-scroll-section relative overflow-x-hidden overflow-y-visible"
-      data-lenis-prevent-touch
+      className="includes-scroll-section relative hidden overflow-x-hidden overflow-y-visible lg:block"
     >
       <div className="includes-pin-panel flex h-screen w-full max-w-full flex-col justify-center overflow-hidden py-4 md:py-6">
         <div className="includes-pin-content mx-auto flex w-full max-w-full min-h-0 flex-col justify-center">
@@ -309,6 +325,7 @@ function PinnedIncludesScroll() {
 export function IncludesSection() {
   return (
     <div id="includes" className="scroll-mt-28">
+      <MobileIncludesCarousel />
       <PinnedIncludesScroll />
     </div>
   )

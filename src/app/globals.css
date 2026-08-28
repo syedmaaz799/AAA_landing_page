@@ -1123,6 +1123,41 @@
     font-size: 0.875rem;
     line-height: 1.55;
   }
+
+  .includes-mobile-section {
+    background:
+      radial-gradient(
+        ellipse 90% 70% at 50% 45%,
+        rgba(255, 140, 0, 0.1),
+        transparent 58%
+      ),
+      #030303;
+  }
+
+  .includes-mobile-track-viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .includes-mobile-track-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .includes-mobile-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    padding-left: max(1rem, 7.5vw);
+    padding-right: max(1rem, 7.5vw);
+  }
+
+  .includes-mobile-track .program-include-slide-card {
+    scroll-snap-align: start;
+  }
 }
 
 .program-include-slide-card {
