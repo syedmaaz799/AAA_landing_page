@@ -36,25 +36,37 @@ function WordReveal({
   delay?: number
   as?: "h2" | "p"
 }) {
-  const words = text.split(" ")
+  // Keep single-letter words (e.g. "A") attached to the next word.
+  // On mobile, tiny inline-block spans often never enter the viewport
+  // observer, so they stay stuck at opacity 0 and look "missing".
+  const tokens = text.split(" ")
+  const groups: string[] = []
+  for (let i = 0; i < tokens.length; i++) {
+    if (tokens[i].length <= 1 && i < tokens.length - 1) {
+      groups.push(`${tokens[i]} ${tokens[i + 1]}`)
+      i += 1
+    } else {
+      groups.push(tokens[i])
+    }
+  }
 
   return (
     <Tag className={className}>
-      {words.map((word, index) => (
+      {groups.map((group, index) => (
         <motion.span
-          key={`${word}-${index}`}
+          key={`${group}-${index}`}
           className="inline-block"
-          initial={{ opacity: 0, y: 50, filter: "blur(8px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-120px" }}
+          initial={{ opacity: 0, y: 36 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{
             duration: 0.55,
             delay: delay + index * 0.03,
             ease: revealEase,
           }}
         >
-          {word}
-          {index < words.length - 1 ? "\u00A0" : ""}
+          {group}
+          {index < groups.length - 1 ? "\u00A0" : ""}
         </motion.span>
       ))}
     </Tag>
